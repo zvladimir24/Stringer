@@ -109,6 +109,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tableColumnEmail => 'Email';
 
   @override
+  String get tableColumnKomercijalista => 'Sales rep';
+
+  @override
+  String get tableColumnLastEmailSent => 'Last email sent';
+
+  @override
+  String get lastEmailSentNeverLabel => 'Never';
+
+  @override
   String get tableColumnStatus => 'Status';
 
   @override
@@ -151,6 +160,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get contactDialogEmailHint => 'e.g. office@company.com';
+
+  @override
+  String get contactDialogKomercijalistaLabel => 'Sales rep';
+
+  @override
+  String get contactDialogKomercijalistaHint => 'e.g. John Smith';
 
   @override
   String get contactDialogInvalidEmail => 'Enter a valid email address.';

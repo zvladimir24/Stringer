@@ -146,6 +146,9 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     emit(currentState.copyWith(isSending: true));
 
     final results = <String, Failure?>{};
+    final updatedContacts = Map<String, CustomerContact>.from(
+      currentState.contactsByPib,
+    );
     for (final pib in currentState.selectedPibs) {
       final debtor = currentState.debtors.firstWhere((d) => d.pib == pib);
       final contact = currentState.contactsByPib[pib];
@@ -154,6 +157,10 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       try {
         await _sendPaymentReminderUseCase(debtor: debtor, contact: contact);
         results[pib] = null;
+
+        final sentContact = contact.copyWith(lastEmailSentAt: DateTime.now());
+        await _saveContactUseCase(sentContact);
+        updatedContacts[pib] = sentContact;
       } on AppException catch (exception) {
         results[pib] = exception.failure;
       } catch (e) {
@@ -164,6 +171,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     emit(
       currentState.copyWith(
         isSending: false,
+        contactsByPib: updatedContacts,
         sendResults: results,
         selectedPibs: const {},
       ),

@@ -122,6 +122,18 @@ class DebtorsReviewTable extends StatelessWidget {
             ),
             DataColumn(
               label: Text(
+                context.l10n.tableColumnKomercijalista,
+                style: AppTextStyles.bodyStrong,
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                context.l10n.tableColumnLastEmailSent,
+                style: AppTextStyles.bodyStrong,
+              ),
+            ),
+            DataColumn(
+              label: Text(
                 context.l10n.tableColumnStatus,
                 style: AppTextStyles.bodyStrong,
               ),
@@ -175,6 +187,8 @@ class DebtorsReviewTable extends StatelessWidget {
                     onTap: () => onEditContact(debtor),
                   ),
                 ),
+                DataCell(Text(contact?.komercijalista ?? '')),
+                DataCell(_LastEmailSentCell(contact: contact)),
                 DataCell(
                   _StatusCell(hasResult: hasSendResult, failure: sendFailure),
                 ),
@@ -214,6 +228,25 @@ class _EmailCell extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class _LastEmailSentCell extends StatelessWidget {
+  final CustomerContact? contact;
+
+  const _LastEmailSentCell({required this.contact});
+
+  @override
+  Widget build(BuildContext context) {
+    final lastSentAt = contact?.lastEmailSentAt;
+    if (lastSentAt == null) {
+      return Text(
+        context.l10n.lastEmailSentNeverLabel,
+        style: AppTextStyles.body.copyWith(color: AppColors.textSecondary),
+      );
+    }
+
+    return Text(DateFormat('dd.MM.yyyy HH:mm').format(lastSentAt));
   }
 }
 

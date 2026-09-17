@@ -129,6 +129,18 @@
   "@tableColumnEmail": {
     "description": "Table column header for email address."
   },
+  "tableColumnKomercijalista": "Komercijalista",
+  "@tableColumnKomercijalista": {
+    "description": "Table column header for the salesperson/account rep assigned to the company."
+  },
+  "tableColumnLastEmailSent": "Poslednji mejl",
+  "@tableColumnLastEmailSent": {
+    "description": "Table column header for the timestamp of the last reminder email sent to the company."
+  },
+  "lastEmailSentNeverLabel": "Nikad",
+  "@lastEmailSentNeverLabel": {
+    "description": "Shown in the last-email-sent column when no reminder has ever been sent to the company."
+  },
   "tableColumnStatus": "Status",
   "@tableColumnStatus": {
     "description": "Table column header for the last send result."
@@ -190,6 +202,14 @@
   "contactDialogEmailHint": "npr. office@kompanija.rs",
   "@contactDialogEmailHint": {
     "description": "Hint text for the email field in the contact dialog."
+  },
+  "contactDialogKomercijalistaLabel": "Komercijalista",
+  "@contactDialogKomercijalistaLabel": {
+    "description": "Label for the salesperson/account rep field in the contact dialog."
+  },
+  "contactDialogKomercijalistaHint": "npr. Marko Marković",
+  "@contactDialogKomercijalistaHint": {
+    "description": "Hint text for the salesperson/account rep field in the contact dialog."
   },
   "contactDialogInvalidEmail": "Unesite ispravnu email adresu.",
   "@contactDialogInvalidEmail": {

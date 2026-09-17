@@ -33,6 +33,7 @@ class ContactEditDialog extends StatefulWidget {
 class _ContactEditDialogState extends State<ContactEditDialog> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _emailController;
+  late final TextEditingController _komercijalistaController;
 
   static final _emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
 
@@ -42,11 +43,15 @@ class _ContactEditDialogState extends State<ContactEditDialog> {
     _emailController = TextEditingController(
       text: widget.existingContact?.email ?? '',
     );
+    _komercijalistaController = TextEditingController(
+      text: widget.existingContact?.komercijalista ?? '',
+    );
   }
 
   @override
   void dispose() {
     _emailController.dispose();
+    _komercijalistaController.dispose();
     super.dispose();
   }
 
@@ -54,7 +59,12 @@ class _ContactEditDialogState extends State<ContactEditDialog> {
     if (!_formKey.currentState!.validate()) return;
 
     Navigator.of(context).pop(
-      CustomerContact(pib: widget.pib, email: _emailController.text.trim()),
+      CustomerContact(
+        pib: widget.pib,
+        email: _emailController.text.trim(),
+        komercijalista: _komercijalistaController.text.trim(),
+        lastEmailSentAt: widget.existingContact?.lastEmailSentAt,
+      ),
     );
   }
 
@@ -64,19 +74,31 @@ class _ContactEditDialogState extends State<ContactEditDialog> {
       title: Text(context.l10n.contactDialogTitle),
       content: Form(
         key: _formKey,
-        child: TextFormField(
-          controller: _emailController,
-          autofocus: true,
-          decoration: InputDecoration(
-            labelText: context.l10n.contactDialogEmailLabel,
-            hintText: context.l10n.contactDialogEmailHint,
-          ),
-          validator: (value) {
-            if (value == null || !_emailRegex.hasMatch(value.trim())) {
-              return context.l10n.contactDialogInvalidEmail;
-            }
-            return null;
-          },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextFormField(
+              controller: _emailController,
+              autofocus: true,
+              decoration: InputDecoration(
+                labelText: context.l10n.contactDialogEmailLabel,
+                hintText: context.l10n.contactDialogEmailHint,
+              ),
+              validator: (value) {
+                if (value == null || !_emailRegex.hasMatch(value.trim())) {
+                  return context.l10n.contactDialogInvalidEmail;
+                }
+                return null;
+              },
+            ),
+            TextFormField(
+              controller: _komercijalistaController,
+              decoration: InputDecoration(
+                labelText: context.l10n.contactDialogKomercijalistaLabel,
+                hintText: context.l10n.contactDialogKomercijalistaHint,
+              ),
+            ),
+          ],
         ),
       ),
       actions: [

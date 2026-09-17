@@ -284,6 +284,24 @@ abstract class AppLocalizations {
   /// **'Email'**
   String get tableColumnEmail;
 
+  /// Table column header for the salesperson/account rep assigned to the company.
+  ///
+  /// In sr, this message translates to:
+  /// **'Komercijalista'**
+  String get tableColumnKomercijalista;
+
+  /// Table column header for the timestamp of the last reminder email sent to the company.
+  ///
+  /// In sr, this message translates to:
+  /// **'Poslednji mejl'**
+  String get tableColumnLastEmailSent;
+
+  /// Shown in the last-email-sent column when no reminder has ever been sent to the company.
+  ///
+  /// In sr, this message translates to:
+  /// **'Nikad'**
+  String get lastEmailSentNeverLabel;
+
   /// Table column header for the last send result.
   ///
   /// In sr, this message translates to:
@@ -361,6 +379,18 @@ abstract class AppLocalizations {
   /// In sr, this message translates to:
   /// **'npr. office@kompanija.rs'**
   String get contactDialogEmailHint;
+
+  /// Label for the salesperson/account rep field in the contact dialog.
+  ///
+  /// In sr, this message translates to:
+  /// **'Komercijalista'**
+  String get contactDialogKomercijalistaLabel;
+
+  /// Hint text for the salesperson/account rep field in the contact dialog.
+  ///
+  /// In sr, this message translates to:
+  /// **'npr. Marko Marković'**
+  String get contactDialogKomercijalistaHint;
 
   /// Validation error for an invalid email address.
   ///
