@@ -14,6 +14,7 @@ class DebtorsReviewTable extends StatelessWidget {
   final Map<String, Failure?> sendResults;
   final ValueChanged<String> onToggleSelection;
   final ValueChanged<Debtor> onEditContact;
+  final ValueChanged<Debtor> onEditKomercijalista;
 
   const DebtorsReviewTable({
     super.key,
@@ -23,6 +24,7 @@ class DebtorsReviewTable extends StatelessWidget {
     required this.sendResults,
     required this.onToggleSelection,
     required this.onEditContact,
+    required this.onEditKomercijalista,
   });
 
   @override
@@ -153,7 +155,7 @@ class DebtorsReviewTable extends StatelessWidget {
                 DataCell(
                   Checkbox(
                     value: isSelected,
-                    onChanged: contact == null
+                    onChanged: (contact == null || contact.email.isEmpty)
                         ? null
                         : (_) => onToggleSelection(debtor.pib),
                   ),
@@ -187,7 +189,12 @@ class DebtorsReviewTable extends StatelessWidget {
                     onTap: () => onEditContact(debtor),
                   ),
                 ),
-                DataCell(Text(contact?.komercijalista ?? '')),
+                DataCell(
+                  _KomercijalistaCell(
+                    komercijalista: contact?.komercijalista,
+                    onTap: () => onEditKomercijalista(debtor),
+                  ),
+                ),
                 DataCell(_LastEmailSentCell(contact: contact)),
                 DataCell(
                   _StatusCell(hasResult: hasSendResult, failure: sendFailure),
@@ -209,7 +216,7 @@ class _EmailCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (contact == null) {
+    if (contact == null || contact!.email.isEmpty) {
       return OutlinedButton.icon(
         onPressed: onTap,
         icon: const Icon(Icons.add, size: 16),
@@ -223,6 +230,36 @@ class _EmailCell extends StatelessWidget {
         Text(contact!.email),
         IconButton(
           tooltip: context.l10n.editEmailTooltip,
+          icon: const Icon(Icons.edit_outlined, size: 16),
+          onPressed: onTap,
+        ),
+      ],
+    );
+  }
+}
+
+class _KomercijalistaCell extends StatelessWidget {
+  final String? komercijalista;
+  final VoidCallback onTap;
+
+  const _KomercijalistaCell({required this.komercijalista, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    if (komercijalista == null || komercijalista!.isEmpty) {
+      return OutlinedButton.icon(
+        onPressed: onTap,
+        icon: const Icon(Icons.add, size: 16),
+        label: Text(context.l10n.addKomercijalistaButton),
+      );
+    }
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(komercijalista!),
+        IconButton(
+          tooltip: context.l10n.editKomercijalistaTooltip,
           icon: const Icon(Icons.edit_outlined, size: 16),
           onPressed: onTap,
         ),

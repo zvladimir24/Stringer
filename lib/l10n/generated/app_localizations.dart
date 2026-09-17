@@ -320,6 +320,24 @@ abstract class AppLocalizations {
   /// **'Izmeni email'**
   String get editEmailTooltip;
 
+  /// Button shown on a row with no saved komercijalista (sales rep) name.
+  ///
+  /// In sr, this message translates to:
+  /// **'Dodaj komercijalistu'**
+  String get addKomercijalistaButton;
+
+  /// Tooltip for the edit icon on a row with a saved komercijalista (sales rep) name.
+  ///
+  /// In sr, this message translates to:
+  /// **'Izmeni komercijalistu'**
+  String get editKomercijalistaTooltip;
+
+  /// Title of the dialog for adding/editing a customer's assigned sales rep.
+  ///
+  /// In sr, this message translates to:
+  /// **'Komercijalista'**
+  String get komercijalistaDialogTitle;
+
   /// Shows the total number of imported records.
   ///
   /// In sr, this message translates to:

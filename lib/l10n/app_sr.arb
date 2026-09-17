@@ -153,6 +153,18 @@
   "@editEmailTooltip": {
     "description": "Tooltip for the edit-contact icon on a row with a saved email."
   },
+  "addKomercijalistaButton": "Dodaj komercijalistu",
+  "@addKomercijalistaButton": {
+    "description": "Button shown on a row with no saved komercijalista (sales rep) name."
+  },
+  "editKomercijalistaTooltip": "Izmeni komercijalistu",
+  "@editKomercijalistaTooltip": {
+    "description": "Tooltip for the edit icon on a row with a saved komercijalista (sales rep) name."
+  },
+  "komercijalistaDialogTitle": "Komercijalista",
+  "@komercijalistaDialogTitle": {
+    "description": "Title of the dialog for adding/editing a customer's assigned sales rep."
+  },
   "totalRecordsLabel": "Ukupno zapisa: {count}",
   "@totalRecordsLabel": {
     "description": "Shows the total number of imported records.",

@@ -15,6 +15,7 @@ import 'bloc/home_screen_event.dart';
 import 'bloc/home_screen_state.dart';
 import 'widgets/contact_edit_dialog.dart';
 import 'widgets/debtors_review_table.dart';
+import 'widgets/komercijalista_edit_dialog.dart';
 import 'widgets/selected_file_bar.dart';
 import 'widgets/send_reminders_bar.dart';
 
@@ -63,6 +64,29 @@ class _HomeScreenView extends StatelessWidget {
     if (contact != null) {
       bloc.add(HomeScreenContactSaved(contact));
     }
+  }
+
+  Future<void> _editKomercijalista(
+    BuildContext context,
+    Debtor debtor,
+    CustomerContact? existingContact,
+  ) async {
+    final bloc = context.read<HomeScreenBloc>();
+    final komercijalista = await showKomercijalistaEditDialog(
+      context: context,
+      existingValue: existingContact?.komercijalista,
+    );
+
+    if (komercijalista == null) return;
+
+    final updatedContact =
+        existingContact?.copyWith(komercijalista: komercijalista) ??
+        CustomerContact(
+          pib: debtor.pib,
+          email: '',
+          komercijalista: komercijalista,
+        );
+    bloc.add(HomeScreenContactSaved(updatedContact));
   }
 
   @override
@@ -150,6 +174,11 @@ class _HomeScreenView extends StatelessWidget {
                             .read<HomeScreenBloc>()
                             .add(HomeScreenRecipientSelectionToggled(pib)),
                         onEditContact: (debtor) => _editContact(
+                          context,
+                          debtor,
+                          contactsByPib[debtor.pib],
+                        ),
+                        onEditKomercijalista: (debtor) => _editKomercijalista(
                           context,
                           debtor,
                           contactsByPib[debtor.pib],

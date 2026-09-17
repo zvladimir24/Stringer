@@ -62,7 +62,9 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       // on file; the user can still uncheck individual rows.
       final defaultSelection = sortedDebtors
           .where(
-            (d) => d.hasOutstandingDebt && contactsByPib.containsKey(d.pib),
+            (d) =>
+                d.hasOutstandingDebt &&
+                (contactsByPib[d.pib]?.email.isNotEmpty ?? false),
           )
           .map((d) => d.pib)
           .toSet();
@@ -106,7 +108,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       (d) => d.pib == event.contact.pib,
     );
     final updatedSelection = Set<String>.from(currentState.selectedPibs);
-    if (debtor.hasOutstandingDebt) {
+    if (debtor.hasOutstandingDebt && event.contact.email.isNotEmpty) {
       updatedSelection.add(event.contact.pib);
     }
 
@@ -152,7 +154,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     for (final pib in currentState.selectedPibs) {
       final debtor = currentState.debtors.firstWhere((d) => d.pib == pib);
       final contact = currentState.contactsByPib[pib];
-      if (contact == null) continue;
+      if (contact == null || contact.email.isEmpty) continue;
 
       try {
         await _sendPaymentReminderUseCase(debtor: debtor, contact: contact);

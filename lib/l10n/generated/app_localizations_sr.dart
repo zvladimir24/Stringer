@@ -127,6 +127,15 @@ class AppLocalizationsSr extends AppLocalizations {
   String get editEmailTooltip => 'Izmeni email';
 
   @override
+  String get addKomercijalistaButton => 'Dodaj komercijalistu';
+
+  @override
+  String get editKomercijalistaTooltip => 'Izmeni komercijalistu';
+
+  @override
+  String get komercijalistaDialogTitle => 'Komercijalista';
+
+  @override
   String totalRecordsLabel(int count) {
     return 'Ukupno zapisa: $count';
   }
