@@ -1,0 +1,266 @@
+{
+  "@@locale": "sr",
+  "appTitle": "Uterivač duga",
+  "@appTitle": {
+    "description": "The title of the application."
+  },
+  "homeScreenTitle": "Zakasnele uplate",
+  "@homeScreenTitle": {
+    "description": "Title of the home screen."
+  },
+  "settingsIconTooltip": "Podešavanja",
+  "@settingsIconTooltip": {
+    "description": "Tooltip for the settings icon button in the home app bar."
+  },
+  "selectExcelFileButton": "Izaberi Excel fajl",
+  "@selectExcelFileButton": {
+    "description": "Button label for picking an xlsx file."
+  },
+  "changeExcelFileButton": "Promeni fajl",
+  "@changeExcelFileButton": {
+    "description": "Button label for picking a different xlsx file."
+  },
+  "clearFileButton": "Ukloni fajl",
+  "@clearFileButton": {
+    "description": "Button label for clearing the currently loaded file."
+  },
+  "retryButton": "Pokušaj ponovo",
+  "@retryButton": {
+    "description": "Button label for retrying a failed action."
+  },
+  "selectedFileLabel": "Izabrani fajl: {fileName}",
+  "@selectedFileLabel": {
+    "description": "Shows the name of the currently selected file.",
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
+  "noFileSelectedTitle": "Nijedan fajl nije izabran",
+  "@noFileSelectedTitle": {
+    "description": "Title shown when no xlsx file has been imported yet."
+  },
+  "noFileSelectedMessage": "Izaberite Excel (.xlsx) fajl da biste učitali podatke o zakasnelim uplatama.",
+  "@noFileSelectedMessage": {
+    "description": "Message shown when no xlsx file has been imported yet."
+  },
+  "loadingMessage": "Učitavanje podataka...",
+  "@loadingMessage": {
+    "description": "Message shown while the xlsx file is being parsed."
+  },
+  "emptyStateTitle": "Nema podataka",
+  "@emptyStateTitle": {
+    "description": "Title shown when the imported file contains no records."
+  },
+  "emptyStateMessage": "Izabrani fajl ne sadrži nijedan zapis o dugovanjima.",
+  "@emptyStateMessage": {
+    "description": "Message shown when the imported file contains no records."
+  },
+  "errorInvalidFileFormatTitle": "Neispravan format fajla",
+  "@errorInvalidFileFormatTitle": {
+    "description": "Title shown when the selected file is not a valid xlsx file."
+  },
+  "errorInvalidFileFormatMessage": "Izabrani fajl nije validan Excel (.xlsx) fajl. Izaberite fajl sa ekstenzijom .xlsx.",
+  "@errorInvalidFileFormatMessage": {
+    "description": "Message shown when the selected file is not a valid xlsx file."
+  },
+  "errorReadingFileTitle": "Greška prilikom čitanja fajla",
+  "@errorReadingFileTitle": {
+    "description": "Title shown when the xlsx file could not be read or parsed."
+  },
+  "errorReadingFileMessage": "Došlo je do greške prilikom čitanja fajla. Proverite da li je fajl oštećen i pokušajte ponovo.",
+  "@errorReadingFileMessage": {
+    "description": "Message shown when the xlsx file could not be read or parsed."
+  },
+  "errorMissingColumnsTitle": "Nedostaju kolone",
+  "@errorMissingColumnsTitle": {
+    "description": "Title shown when the xlsx file is missing expected columns."
+  },
+  "errorMissingColumnsMessage": "Fajl ne sadrži očekivane kolone (Šifra, Naziv poslovnog partnera, PIB, Ukupan dug, Dug u roku i kolone dospeća).",
+  "@errorMissingColumnsMessage": {
+    "description": "Message shown when the xlsx file is missing expected columns."
+  },
+  "tableColumnCode": "Šifra",
+  "@tableColumnCode": {
+    "description": "Table column header for the internal customer code."
+  },
+  "tableColumnCompany": "Kompanija",
+  "@tableColumnCompany": {
+    "description": "Table column header for company name."
+  },
+  "tableColumnPib": "PIB",
+  "@tableColumnPib": {
+    "description": "Table column header for the tax identification number."
+  },
+  "tableColumnTotalDebt": "Ukupan dug",
+  "@tableColumnTotalDebt": {
+    "description": "Table column header for the total debt amount."
+  },
+  "tableColumnCurrentDebt": "Dug u roku",
+  "@tableColumnCurrentDebt": {
+    "description": "Table column header for the not-yet-due debt amount."
+  },
+  "tableColumnTotalOverdue": "Ukupno dospelo",
+  "@tableColumnTotalOverdue": {
+    "description": "Table column header for the total overdue amount."
+  },
+  "tableColumnOverdue7": "Do 7 dana",
+  "@tableColumnOverdue7": {
+    "description": "Table column header for the 0-7 days overdue bucket."
+  },
+  "tableColumnOverdue15": "Do 15 dana",
+  "@tableColumnOverdue15": {
+    "description": "Table column header for the 8-15 days overdue bucket."
+  },
+  "tableColumnOverdue30": "Do 30 dana",
+  "@tableColumnOverdue30": {
+    "description": "Table column header for the 16-30 days overdue bucket."
+  },
+  "tableColumnOverdue60": "Do 60 dana",
+  "@tableColumnOverdue60": {
+    "description": "Table column header for the 31-60 days overdue bucket."
+  },
+  "tableColumnOverdueOver60": "Preko 60 dana",
+  "@tableColumnOverdueOver60": {
+    "description": "Table column header for the over-60-days overdue bucket."
+  },
+  "tableColumnEmail": "Email",
+  "@tableColumnEmail": {
+    "description": "Table column header for email address."
+  },
+  "tableColumnStatus": "Status",
+  "@tableColumnStatus": {
+    "description": "Table column header for the last send result."
+  },
+  "addEmailButton": "Dodaj email",
+  "@addEmailButton": {
+    "description": "Button shown on a row with no saved contact email."
+  },
+  "editEmailTooltip": "Izmeni email",
+  "@editEmailTooltip": {
+    "description": "Tooltip for the edit-contact icon on a row with a saved email."
+  },
+  "totalRecordsLabel": "Ukupno zapisa: {count}",
+  "@totalRecordsLabel": {
+    "description": "Shows the total number of imported records.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "selectedRecipientsLabel": "Izabrano: {count}",
+  "@selectedRecipientsLabel": {
+    "description": "Shows how many recipients are currently selected to be emailed.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sendRemindersButton": "Pošalji podsetnike",
+  "@sendRemindersButton": {
+    "description": "Button that sends the reminder email to every selected recipient."
+  },
+  "sendingInProgressMessage": "Slanje u toku...",
+  "@sendingInProgressMessage": {
+    "description": "Shown while reminder emails are being sent."
+  },
+  "sendResultSuccessTooltip": "Uspešno poslato",
+  "@sendResultSuccessTooltip": {
+    "description": "Tooltip on the success icon after sending a reminder."
+  },
+  "sendResultSmtpNotConfiguredTooltip": "SMTP nije podešen. Otvorite Podešavanja.",
+  "@sendResultSmtpNotConfiguredTooltip": {
+    "description": "Tooltip when sending failed because SMTP settings are missing."
+  },
+  "sendResultFailedTooltip": "Slanje nije uspelo",
+  "@sendResultFailedTooltip": {
+    "description": "Tooltip when sending a reminder failed for any other reason."
+  },
+  "contactDialogTitle": "Kontakt podaci",
+  "@contactDialogTitle": {
+    "description": "Title of the dialog for adding/editing a customer contact."
+  },
+  "contactDialogEmailLabel": "Email adresa",
+  "@contactDialogEmailLabel": {
+    "description": "Label for the email field in the contact dialog."
+  },
+  "contactDialogEmailHint": "npr. office@kompanija.rs",
+  "@contactDialogEmailHint": {
+    "description": "Hint text for the email field in the contact dialog."
+  },
+  "contactDialogInvalidEmail": "Unesite ispravnu email adresu.",
+  "@contactDialogInvalidEmail": {
+    "description": "Validation error for an invalid email address."
+  },
+  "contactDialogSaveButton": "Sačuvaj",
+  "@contactDialogSaveButton": {
+    "description": "Save button in the contact dialog."
+  },
+  "contactDialogCancelButton": "Otkaži",
+  "@contactDialogCancelButton": {
+    "description": "Cancel button in the contact dialog."
+  },
+  "settingsScreenTitle": "Podešavanja",
+  "@settingsScreenTitle": {
+    "description": "Title of the SMTP settings screen."
+  },
+  "settingsSmtpSectionTitle": "SMTP server",
+  "@settingsSmtpSectionTitle": {
+    "description": "Section title for the SMTP connection fields."
+  },
+  "settingsHostLabel": "SMTP server (host)",
+  "@settingsHostLabel": {
+    "description": "Label for the SMTP host field."
+  },
+  "settingsPortLabel": "Port",
+  "@settingsPortLabel": {
+    "description": "Label for the SMTP port field."
+  },
+  "settingsUsernameLabel": "Korisničko ime",
+  "@settingsUsernameLabel": {
+    "description": "Label for the SMTP username field."
+  },
+  "settingsPasswordLabel": "Lozinka",
+  "@settingsPasswordLabel": {
+    "description": "Label for the SMTP password field."
+  },
+  "settingsSenderNameLabel": "Ime pošiljaoca",
+  "@settingsSenderNameLabel": {
+    "description": "Label for the sender display name field."
+  },
+  "settingsSenderEmailLabel": "Email pošiljaoca",
+  "@settingsSenderEmailLabel": {
+    "description": "Label for the sender email address field."
+  },
+  "settingsUseSslLabel": "Koristi SSL",
+  "@settingsUseSslLabel": {
+    "description": "Label for the use-SSL toggle."
+  },
+  "settingsFooterLabel": "Potpis / kontakt telefoni",
+  "@settingsFooterLabel": {
+    "description": "Label for the footer/signature text field appended to every email."
+  },
+  "settingsFooterHint": "npr. Naziv kompanije, Telefon: 011/xxx-xxx",
+  "@settingsFooterHint": {
+    "description": "Hint text for the footer/signature field."
+  },
+  "settingsSaveButton": "Sačuvaj podešavanja",
+  "@settingsSaveButton": {
+    "description": "Save button on the settings screen."
+  },
+  "settingsSavedMessage": "Podešavanja su sačuvana.",
+  "@settingsSavedMessage": {
+    "description": "Confirmation shown after settings are saved."
+  },
+  "settingsValidationRequired": "Ovo polje je obavezno.",
+  "@settingsValidationRequired": {
+    "description": "Validation error for a required settings field."
+  },
+  "settingsValidationInvalidPort": "Unesite ispravan broj porta.",
+  "@settingsValidationInvalidPort": {
+    "description": "Validation error for an invalid port number."
+  }
+}
