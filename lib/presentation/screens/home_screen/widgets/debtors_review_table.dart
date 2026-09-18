@@ -7,7 +7,7 @@ import 'package:stringer/core/extensions/build_context_extensions.dart';
 import 'package:stringer/domain/models/customer_contact.dart';
 import 'package:stringer/domain/models/debtor.dart';
 
-class DebtorsReviewTable extends StatelessWidget {
+class DebtorsReviewTable extends StatefulWidget {
   final List<Debtor> debtors;
   final Map<String, CustomerContact> contactsByPib;
   final Set<String> selectedPibs;
@@ -30,192 +30,230 @@ class DebtorsReviewTable extends StatelessWidget {
   });
 
   @override
+  State<DebtorsReviewTable> createState() => _DebtorsReviewTableState();
+}
+
+class _DebtorsReviewTableState extends State<DebtorsReviewTable> {
+  final _verticalController = ScrollController();
+  final _horizontalController = ScrollController();
+
+  @override
+  void dispose() {
+    _verticalController.dispose();
+    _horizontalController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final debtors = widget.debtors;
+    final contactsByPib = widget.contactsByPib;
+    final selectedPibs = widget.selectedPibs;
+    final sendResults = widget.sendResults;
+    final onToggleSelection = widget.onToggleSelection;
+    final onEditContact = widget.onEditContact;
+    final onEditKomercijalista = widget.onEditKomercijalista;
+    final onEditNaslov = widget.onEditNaslov;
+
     final amountFormat = NumberFormat.decimalPatternDigits(
       locale: 'sr_RS',
       decimalDigits: 2,
     );
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
+    return Scrollbar(
+      controller: _verticalController,
+      thumbVisibility: true,
       child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: DataTable(
-          headingRowColor: WidgetStateProperty.all(AppColors.background),
-          columns: [
-            const DataColumn(label: SizedBox.shrink()),
-            DataColumn(
-              label: Text(
-                context.l10n.tableColumnCode,
-                style: AppTextStyles.bodyStrong,
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                context.l10n.tableColumnCompany,
-                style: AppTextStyles.bodyStrong,
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                context.l10n.tableColumnPib,
-                style: AppTextStyles.bodyStrong,
-              ),
-            ),
-            DataColumn(
-              numeric: true,
-              label: Text(
-                context.l10n.tableColumnTotalDebt,
-                style: AppTextStyles.bodyStrong,
-              ),
-            ),
-            DataColumn(
-              numeric: true,
-              label: Text(
-                context.l10n.tableColumnCurrentDebt,
-                style: AppTextStyles.bodyStrong,
-              ),
-            ),
-            DataColumn(
-              numeric: true,
-              label: Text(
-                context.l10n.tableColumnTotalOverdue,
-                style: AppTextStyles.bodyStrong,
-              ),
-            ),
-            DataColumn(
-              numeric: true,
-              label: Text(
-                context.l10n.tableColumnOverdue7,
-                style: AppTextStyles.bodyStrong,
-              ),
-            ),
-            DataColumn(
-              numeric: true,
-              label: Text(
-                context.l10n.tableColumnOverdue15,
-                style: AppTextStyles.bodyStrong,
-              ),
-            ),
-            DataColumn(
-              numeric: true,
-              label: Text(
-                context.l10n.tableColumnOverdue30,
-                style: AppTextStyles.bodyStrong,
-              ),
-            ),
-            DataColumn(
-              numeric: true,
-              label: Text(
-                context.l10n.tableColumnOverdue60,
-                style: AppTextStyles.bodyStrong,
-              ),
-            ),
-            DataColumn(
-              numeric: true,
-              label: Text(
-                context.l10n.tableColumnOverdueOver60,
-                style: AppTextStyles.bodyStrong,
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                context.l10n.tableColumnEmail,
-                style: AppTextStyles.bodyStrong,
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                context.l10n.tableColumnKomercijalista,
-                style: AppTextStyles.bodyStrong,
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                context.l10n.tableColumnNaslov,
-                style: AppTextStyles.bodyStrong,
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                context.l10n.tableColumnLastEmailSent,
-                style: AppTextStyles.bodyStrong,
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                context.l10n.tableColumnStatus,
-                style: AppTextStyles.bodyStrong,
-              ),
-            ),
-          ],
-          rows: debtors.map((debtor) {
-            final contact = contactsByPib[debtor.pib];
-            final isSelected = selectedPibs.contains(debtor.pib);
-            final hasSendResult = sendResults.containsKey(debtor.pib);
-            final sendFailure = sendResults[debtor.pib];
-            final hasOverdue = debtor.totalOverdue > 0;
-
-            String amount(double value) => amountFormat.format(value);
-
-            return DataRow(
-              cells: [
-                DataCell(
-                  Checkbox(
-                    value: isSelected,
-                    onChanged: (contact == null || contact.email.isEmpty)
-                        ? null
-                        : (_) => onToggleSelection(debtor.pib),
+        controller: _verticalController,
+        scrollDirection: Axis.vertical,
+        child: Scrollbar(
+          controller: _horizontalController,
+          thumbVisibility: true,
+          notificationPredicate: (notification) => notification.depth == 0,
+          child: SingleChildScrollView(
+            controller: _horizontalController,
+            scrollDirection: Axis.horizontal,
+            child: DataTable(
+              headingRowColor: WidgetStateProperty.all(AppColors.background),
+              columns: [
+                const DataColumn(label: SizedBox.shrink()),
+                DataColumn(
+                  label: Text(
+                    context.l10n.tableColumnCode,
+                    style: AppTextStyles.bodyStrong,
                   ),
                 ),
-                DataCell(Text(debtor.code)),
-                DataCell(Text(debtor.companyName)),
-                DataCell(Text(debtor.pib)),
-                DataCell(Text(amount(debtor.totalDebt))),
-                DataCell(Text(amount(debtor.currentDebt))),
-                DataCell(
-                  Text(
-                    amount(debtor.totalOverdue),
-                    style: AppTextStyles.body.copyWith(
-                      color: hasOverdue
-                          ? AppColors.error
-                          : AppColors.textPrimary,
-                      fontWeight: hasOverdue
-                          ? FontWeight.w700
-                          : FontWeight.w400,
-                    ),
+                DataColumn(
+                  label: Text(
+                    context.l10n.tableColumnCompany,
+                    style: AppTextStyles.bodyStrong,
                   ),
                 ),
-                DataCell(Text(amount(debtor.overdueUpTo7Days))),
-                DataCell(Text(amount(debtor.overdueUpTo15Days))),
-                DataCell(Text(amount(debtor.overdueUpTo30Days))),
-                DataCell(Text(amount(debtor.overdueUpTo60Days))),
-                DataCell(Text(amount(debtor.overdueOver60Days))),
-                DataCell(
-                  _EmailCell(
-                    contact: contact,
-                    onTap: () => onEditContact(debtor),
+                DataColumn(
+                  label: Text(
+                    context.l10n.tableColumnPib,
+                    style: AppTextStyles.bodyStrong,
                   ),
                 ),
-                DataCell(
-                  _KomercijalistaCell(
-                    komercijalista: contact?.komercijalista,
-                    onTap: () => onEditKomercijalista(debtor),
+                DataColumn(
+                  numeric: true,
+                  label: Text(
+                    context.l10n.tableColumnTotalDebt,
+                    style: AppTextStyles.bodyStrong,
                   ),
                 ),
-                DataCell(
-                  _NaslovCell(
-                    naslov: contact?.naslov,
-                    onTap: () => onEditNaslov(debtor),
+                DataColumn(
+                  numeric: true,
+                  label: Text(
+                    context.l10n.tableColumnCurrentDebt,
+                    style: AppTextStyles.bodyStrong,
                   ),
                 ),
-                DataCell(_LastEmailSentCell(contact: contact)),
-                DataCell(
-                  _StatusCell(hasResult: hasSendResult, failure: sendFailure),
+                DataColumn(
+                  numeric: true,
+                  label: Text(
+                    context.l10n.tableColumnTotalOverdue,
+                    style: AppTextStyles.bodyStrong,
+                  ),
+                ),
+                DataColumn(
+                  numeric: true,
+                  label: Text(
+                    context.l10n.tableColumnOverdue7,
+                    style: AppTextStyles.bodyStrong,
+                  ),
+                ),
+                DataColumn(
+                  numeric: true,
+                  label: Text(
+                    context.l10n.tableColumnOverdue15,
+                    style: AppTextStyles.bodyStrong,
+                  ),
+                ),
+                DataColumn(
+                  numeric: true,
+                  label: Text(
+                    context.l10n.tableColumnOverdue30,
+                    style: AppTextStyles.bodyStrong,
+                  ),
+                ),
+                DataColumn(
+                  numeric: true,
+                  label: Text(
+                    context.l10n.tableColumnOverdue60,
+                    style: AppTextStyles.bodyStrong,
+                  ),
+                ),
+                DataColumn(
+                  numeric: true,
+                  label: Text(
+                    context.l10n.tableColumnOverdueOver60,
+                    style: AppTextStyles.bodyStrong,
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    context.l10n.tableColumnEmail,
+                    style: AppTextStyles.bodyStrong,
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    context.l10n.tableColumnKomercijalista,
+                    style: AppTextStyles.bodyStrong,
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    context.l10n.tableColumnNaslov,
+                    style: AppTextStyles.bodyStrong,
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    context.l10n.tableColumnLastEmailSent,
+                    style: AppTextStyles.bodyStrong,
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    context.l10n.tableColumnStatus,
+                    style: AppTextStyles.bodyStrong,
+                  ),
                 ),
               ],
-            );
-          }).toList(),
+              rows: debtors.map((debtor) {
+                final contact = contactsByPib[debtor.pib];
+                final isSelected = selectedPibs.contains(debtor.pib);
+                final hasSendResult = sendResults.containsKey(debtor.pib);
+                final sendFailure = sendResults[debtor.pib];
+                final hasOverdue = debtor.totalOverdue > 0;
+
+                String amount(double value) => amountFormat.format(value);
+
+                return DataRow(
+                  cells: [
+                    DataCell(
+                      Checkbox(
+                        value: isSelected,
+                        onChanged: (contact == null || contact.email.isEmpty)
+                            ? null
+                            : (_) => onToggleSelection(debtor.pib),
+                      ),
+                    ),
+                    DataCell(Text(debtor.code)),
+                    DataCell(Text(debtor.companyName)),
+                    DataCell(Text(debtor.pib)),
+                    DataCell(Text(amount(debtor.totalDebt))),
+                    DataCell(Text(amount(debtor.currentDebt))),
+                    DataCell(
+                      Text(
+                        amount(debtor.totalOverdue),
+                        style: AppTextStyles.body.copyWith(
+                          color: hasOverdue
+                              ? AppColors.error
+                              : AppColors.textPrimary,
+                          fontWeight: hasOverdue
+                              ? FontWeight.w700
+                              : FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                    DataCell(Text(amount(debtor.overdueUpTo7Days))),
+                    DataCell(Text(amount(debtor.overdueUpTo15Days))),
+                    DataCell(Text(amount(debtor.overdueUpTo30Days))),
+                    DataCell(Text(amount(debtor.overdueUpTo60Days))),
+                    DataCell(Text(amount(debtor.overdueOver60Days))),
+                    DataCell(
+                      _EmailCell(
+                        contact: contact,
+                        onTap: () => onEditContact(debtor),
+                      ),
+                    ),
+                    DataCell(
+                      _KomercijalistaCell(
+                        komercijalista: contact?.komercijalista,
+                        onTap: () => onEditKomercijalista(debtor),
+                      ),
+                    ),
+                    DataCell(
+                      _NaslovCell(
+                        naslov: contact?.naslov,
+                        onTap: () => onEditNaslov(debtor),
+                      ),
+                    ),
+                    DataCell(_LastEmailSentCell(contact: contact)),
+                    DataCell(
+                      _StatusCell(
+                        hasResult: hasSendResult,
+                        failure: sendFailure,
+                      ),
+                    ),
+                  ],
+                );
+              }).toList(),
+            ),
+          ),
         ),
       ),
     );
@@ -256,7 +294,10 @@ class _KomercijalistaCell extends StatelessWidget {
   final String? komercijalista;
   final VoidCallback onTap;
 
-  const _KomercijalistaCell({required this.komercijalista, required this.onTap});
+  const _KomercijalistaCell({
+    required this.komercijalista,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {

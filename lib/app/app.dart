@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stringer/l10n/generated/app_localizations.dart';
 import 'package:stringer/presentation/screens/home_screen/home_screen.dart';
 
+import 'theme/app_scroll_behavior.dart';
 import 'theme/app_theme.dart';
 
 class App extends StatelessWidget {
@@ -12,6 +13,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
       debugShowCheckedModeBanner: false,
+      scrollBehavior: AppScrollBehavior(),
       theme: AppTheme.light,
       locale: const Locale('sr'),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
