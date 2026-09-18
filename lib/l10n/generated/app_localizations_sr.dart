@@ -213,6 +213,12 @@ class AppLocalizationsSr extends AppLocalizations {
   String get settingsUseSslLabel => 'Koristi SSL';
 
   @override
+  String get settingsEmailSubjectLabel => 'Naslov mejla';
+
+  @override
+  String get settingsEmailSubjectHint => 'npr. Opomena za neizmireno dugovanje';
+
+  @override
   String get settingsFooterLabel => 'Potpis / kontakt telefoni';
 
   @override

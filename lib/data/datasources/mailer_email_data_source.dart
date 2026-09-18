@@ -20,6 +20,8 @@ class MailerEmailDataSource {
     final content = PaymentReminderEmailTemplate.build(
       debtor: debtor,
       footerText: settings.footerText,
+      emailSubject: settings.emailSubject,
+      komercijalista: contact.komercijalista,
     );
 
     final server = SmtpServer(

@@ -64,6 +64,8 @@
   "settingsSenderNameLabel": "Sender name",
   "settingsSenderEmailLabel": "Sender email",
   "settingsUseSslLabel": "Use SSL",
+  "settingsEmailSubjectLabel": "Email subject",
+  "settingsEmailSubjectHint": "e.g. Overdue payment reminder",
   "settingsFooterLabel": "Signature / contact phone numbers",
   "settingsFooterHint": "e.g. Company name, Phone: 011/xxx-xxx",
   "settingsSaveButton": "Save settings",

@@ -38,6 +38,7 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
   final _senderNameController = TextEditingController();
   final _senderEmailController = TextEditingController();
   final _footerController = TextEditingController();
+  final _emailSubjectController = TextEditingController();
   // Off by default: Gmail/Google Workspace (the expected provider) uses
   // STARTTLS on port 587, not a direct SSL connection.
   bool _useSsl = false;
@@ -52,6 +53,7 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
     _senderNameController.dispose();
     _senderEmailController.dispose();
     _footerController.dispose();
+    _emailSubjectController.dispose();
     super.dispose();
   }
 
@@ -64,6 +66,7 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
       // expected provider) so there's less to fill in.
       _hostController.text = 'smtp.gmail.com';
       _portController.text = '587';
+      _emailSubjectController.text = SmtpSettings.defaultEmailSubject;
       return;
     }
 
@@ -74,6 +77,7 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
     _senderNameController.text = settings.senderName;
     _senderEmailController.text = settings.senderEmail;
     _footerController.text = settings.footerText;
+    _emailSubjectController.text = settings.emailSubject;
     _useSsl = settings.useSsl;
   }
 
@@ -89,6 +93,9 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
       senderEmail: _senderEmailController.text.trim(),
       useSsl: _useSsl,
       footerText: _footerController.text,
+      emailSubject: _emailSubjectController.text.trim().isEmpty
+          ? SmtpSettings.defaultEmailSubject
+          : _emailSubjectController.text.trim(),
     );
 
     context.read<SettingsBloc>().add(SettingsSaveRequested(settings));
@@ -184,6 +191,14 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
                       title: Text(context.l10n.settingsUseSslLabel),
                       value: _useSsl,
                       onChanged: (value) => setState(() => _useSsl = value),
+                    ),
+                    const SizedBox(height: AppSpacing.md),
+                    TextFormField(
+                      controller: _emailSubjectController,
+                      decoration: InputDecoration(
+                        labelText: context.l10n.settingsEmailSubjectLabel,
+                        hintText: context.l10n.settingsEmailSubjectHint,
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.md),
                     TextFormField(

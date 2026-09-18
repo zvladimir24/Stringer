@@ -482,6 +482,18 @@ abstract class AppLocalizations {
   /// **'Koristi SSL'**
   String get settingsUseSslLabel;
 
+  /// Label for the email subject field on the settings screen.
+  ///
+  /// In sr, this message translates to:
+  /// **'Naslov mejla'**
+  String get settingsEmailSubjectLabel;
+
+  /// Hint text for the email subject field.
+  ///
+  /// In sr, this message translates to:
+  /// **'npr. Opomena za neizmireno dugovanje'**
+  String get settingsEmailSubjectHint;
+
   /// Label for the footer/signature text field appended to every email.
   ///
   /// In sr, this message translates to:

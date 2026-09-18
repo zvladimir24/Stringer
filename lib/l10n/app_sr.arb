@@ -271,6 +271,14 @@
   "@settingsUseSslLabel": {
     "description": "Label for the use-SSL toggle."
   },
+  "settingsEmailSubjectLabel": "Naslov mejla",
+  "@settingsEmailSubjectLabel": {
+    "description": "Label for the email subject field on the settings screen."
+  },
+  "settingsEmailSubjectHint": "npr. Opomena za neizmireno dugovanje",
+  "@settingsEmailSubjectHint": {
+    "description": "Hint text for the email subject field."
+  },
   "settingsFooterLabel": "Potpis / kontakt telefoni",
   "@settingsFooterLabel": {
     "description": "Label for the footer/signature text field appended to every email."

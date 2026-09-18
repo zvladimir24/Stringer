@@ -20,6 +20,8 @@ class PaymentReminderEmailTemplate {
   static PaymentReminderEmailContent build({
     required Debtor debtor,
     required String footerText,
+    required String emailSubject,
+    String komercijalista = '',
   }) {
     final amountFormat = NumberFormat.decimalPatternDigits(
       locale: 'sr_RS',
@@ -28,7 +30,7 @@ class PaymentReminderEmailTemplate {
     final totalOverdueText =
         '${amountFormat.format(debtor.totalOverdue)} ${debtor.currency}';
 
-    final subject = 'Opomena za neizmireno dugovanje - ${debtor.companyName}';
+    final subject = '$emailSubject - ${debtor.companyName}';
 
     final htmlBody =
         '''
@@ -37,6 +39,7 @@ class PaymentReminderEmailTemplate {
   <p>Vaš dug u iznosu od <strong>$totalOverdueText</strong> prema našoj kompaniji je dospeo i još uvek nije izmiren.</p>
   <p>Ljubazno molimo da izmirite dugovanje.</p>
   <p>U prilogu se nalazi pregled obaveza po danima dospeća.</p>
+  ${_buildKomercijalistaBlock(komercijalista)}
   ${_buildBreakdownTable(debtor, amountFormat)}
   <p>Ukoliko ste izmirili dospelo dugovanje molim vas zanemarite ovaj mail ili ako ima bilo kakvih neslaganja i nejasnoća možete nas kontaktirati na dole navedene brojeve telefona.</p>
   ${_buildFooter(footerText)}
@@ -44,6 +47,23 @@ class PaymentReminderEmailTemplate {
 ''';
 
     return PaymentReminderEmailContent(subject: subject, htmlBody: htmlBody);
+  }
+
+  static String _buildKomercijalistaBlock(String komercijalista) {
+    if (komercijalista.trim().isEmpty) return '';
+
+    return '''
+      <table style="border-collapse:collapse;margin:16px 0;">
+        <tbody>
+          <tr>
+            <td style="padding:6px 12px;border:1px solid #DDE2E8;background:#F5F7FA;font-weight:bold;">Komercijalista</td>
+          </tr>
+          <tr>
+            <td style="padding:6px 12px;border:1px solid #DDE2E8;">${komercijalista.trim()}</td>
+          </tr>
+        </tbody>
+      </table>
+    ''';
   }
 
   static String _buildBreakdownTable(Debtor debtor, NumberFormat format) {
