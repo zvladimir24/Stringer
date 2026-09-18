@@ -46,12 +46,3 @@ class HomeScreenRecipientSelectionToggled extends HomeScreenEvent {
 class HomeScreenSendRemindersRequested extends HomeScreenEvent {
   const HomeScreenSendRemindersRequested();
 }
-
-class HomeScreenEmailSubjectChanged extends HomeScreenEvent {
-  final String emailSubject;
-
-  const HomeScreenEmailSubjectChanged(this.emailSubject);
-
-  @override
-  List<Object?> get props => [emailSubject];
-}

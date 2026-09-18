@@ -296,6 +296,12 @@ abstract class AppLocalizations {
   /// **'Poslednji mejl'**
   String get tableColumnLastEmailSent;
 
+  /// Table column header for the per-company reminder email subject.
+  ///
+  /// In sr, this message translates to:
+  /// **'Naslov emaila'**
+  String get tableColumnNaslov;
+
   /// Shown in the last-email-sent column when no reminder has ever been sent to the company.
   ///
   /// In sr, this message translates to:
@@ -338,6 +344,36 @@ abstract class AppLocalizations {
   /// **'Komercijalista'**
   String get komercijalistaDialogTitle;
 
+  /// Button shown on a row with no saved email subject (naslov).
+  ///
+  /// In sr, this message translates to:
+  /// **'Dodaj naslov'**
+  String get addNaslovButton;
+
+  /// Tooltip for the edit icon on a row with a saved email subject (naslov).
+  ///
+  /// In sr, this message translates to:
+  /// **'Izmeni naslov'**
+  String get editNaslovTooltip;
+
+  /// Title of the dialog for adding/editing a customer's reminder email subject.
+  ///
+  /// In sr, this message translates to:
+  /// **'Naslov emaila'**
+  String get naslovDialogTitle;
+
+  /// Label for the text field in the naslov (email subject) dialog.
+  ///
+  /// In sr, this message translates to:
+  /// **'Naslov emaila'**
+  String get naslovDialogLabel;
+
+  /// Hint text for the text field in the naslov (email subject) dialog.
+  ///
+  /// In sr, this message translates to:
+  /// **'npr. Opomena za neizmireno dugovanje'**
+  String get naslovDialogHint;
+
   /// Shows the total number of imported records.
   ///
   /// In sr, this message translates to:
@@ -379,6 +415,12 @@ abstract class AppLocalizations {
   /// In sr, this message translates to:
   /// **'Slanje nije uspelo'**
   String get sendResultFailedTooltip;
+
+  /// Tooltip when sending failed because the company has no email subject (naslov) set.
+  ///
+  /// In sr, this message translates to:
+  /// **'Morate dodati naslov mejla.'**
+  String get sendResultMissingNaslovTooltip;
 
   /// Title of the dialog for adding/editing a customer contact.
   ///
@@ -481,24 +523,6 @@ abstract class AppLocalizations {
   /// In sr, this message translates to:
   /// **'Koristi SSL'**
   String get settingsUseSslLabel;
-
-  /// Label for the email subject field on the settings screen.
-  ///
-  /// In sr, this message translates to:
-  /// **'Naslov mejla'**
-  String get settingsEmailSubjectLabel;
-
-  /// Hint text for the email subject field.
-  ///
-  /// In sr, this message translates to:
-  /// **'npr. Opomena za neizmireno dugovanje'**
-  String get settingsEmailSubjectHint;
-
-  /// Tooltip for the edit icon on the email subject bar shown after loading a file.
-  ///
-  /// In sr, this message translates to:
-  /// **'Izmeni naslov mejla'**
-  String get editEmailSubjectTooltip;
 
   /// Label for the footer/signature text field appended to every email.
   ///

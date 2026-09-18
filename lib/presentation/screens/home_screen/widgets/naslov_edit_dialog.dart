@@ -1,35 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:stringer/core/extensions/build_context_extensions.dart';
 
-/// Shows a dialog for editing the reminder email's subject line. Returns
-/// the trimmed value, or null if the user cancelled.
-Future<String?> showEmailSubjectEditDialog({
+/// Shows a dialog for adding/editing a customer's reminder email subject
+/// (naslov). Returns the trimmed value, or null if the user cancelled.
+Future<String?> showNaslovEditDialog({
   required BuildContext context,
-  required String existingValue,
+  String? existingValue,
 }) {
   return showDialog<String>(
     context: context,
-    builder: (_) => _EmailSubjectEditDialog(existingValue: existingValue),
+    builder: (_) => _NaslovEditDialog(existingValue: existingValue),
   );
 }
 
-class _EmailSubjectEditDialog extends StatefulWidget {
-  final String existingValue;
+class _NaslovEditDialog extends StatefulWidget {
+  final String? existingValue;
 
-  const _EmailSubjectEditDialog({required this.existingValue});
+  const _NaslovEditDialog({this.existingValue});
 
   @override
-  State<_EmailSubjectEditDialog> createState() =>
-      _EmailSubjectEditDialogState();
+  State<_NaslovEditDialog> createState() => _NaslovEditDialogState();
 }
 
-class _EmailSubjectEditDialogState extends State<_EmailSubjectEditDialog> {
+class _NaslovEditDialogState extends State<_NaslovEditDialog> {
   late final TextEditingController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: widget.existingValue);
+    _controller = TextEditingController(text: widget.existingValue ?? '');
   }
 
   @override
@@ -39,21 +38,19 @@ class _EmailSubjectEditDialogState extends State<_EmailSubjectEditDialog> {
   }
 
   void _save() {
-    final value = _controller.text.trim();
-    if (value.isEmpty) return;
-    Navigator.of(context).pop(value);
+    Navigator.of(context).pop(_controller.text.trim());
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(context.l10n.settingsEmailSubjectLabel),
+      title: Text(context.l10n.naslovDialogTitle),
       content: TextField(
         controller: _controller,
         autofocus: true,
         decoration: InputDecoration(
-          labelText: context.l10n.settingsEmailSubjectLabel,
-          hintText: context.l10n.settingsEmailSubjectHint,
+          labelText: context.l10n.naslovDialogLabel,
+          hintText: context.l10n.naslovDialogHint,
         ),
         onSubmitted: (_) => _save(),
       ),

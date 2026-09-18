@@ -112,8 +112,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i759.GetContactsUseCase>(),
         gh<_i848.SaveContactUseCase>(),
         gh<_i903.SendPaymentReminderUseCase>(),
-        gh<_i872.GetSmtpSettingsUseCase>(),
-        gh<_i148.SaveSmtpSettingsUseCase>(),
       ),
     );
     return this;

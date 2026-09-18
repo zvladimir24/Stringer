@@ -15,6 +15,7 @@ class DebtorsReviewTable extends StatelessWidget {
   final ValueChanged<String> onToggleSelection;
   final ValueChanged<Debtor> onEditContact;
   final ValueChanged<Debtor> onEditKomercijalista;
+  final ValueChanged<Debtor> onEditNaslov;
 
   const DebtorsReviewTable({
     super.key,
@@ -25,6 +26,7 @@ class DebtorsReviewTable extends StatelessWidget {
     required this.onToggleSelection,
     required this.onEditContact,
     required this.onEditKomercijalista,
+    required this.onEditNaslov,
   });
 
   @override
@@ -130,6 +132,12 @@ class DebtorsReviewTable extends StatelessWidget {
             ),
             DataColumn(
               label: Text(
+                context.l10n.tableColumnNaslov,
+                style: AppTextStyles.bodyStrong,
+              ),
+            ),
+            DataColumn(
+              label: Text(
                 context.l10n.tableColumnLastEmailSent,
                 style: AppTextStyles.bodyStrong,
               ),
@@ -193,6 +201,12 @@ class DebtorsReviewTable extends StatelessWidget {
                   _KomercijalistaCell(
                     komercijalista: contact?.komercijalista,
                     onTap: () => onEditKomercijalista(debtor),
+                  ),
+                ),
+                DataCell(
+                  _NaslovCell(
+                    naslov: contact?.naslov,
+                    onTap: () => onEditNaslov(debtor),
                   ),
                 ),
                 DataCell(_LastEmailSentCell(contact: contact)),
@@ -268,6 +282,36 @@ class _KomercijalistaCell extends StatelessWidget {
   }
 }
 
+class _NaslovCell extends StatelessWidget {
+  final String? naslov;
+  final VoidCallback onTap;
+
+  const _NaslovCell({required this.naslov, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    if (naslov == null || naslov!.isEmpty) {
+      return OutlinedButton.icon(
+        onPressed: onTap,
+        icon: const Icon(Icons.add, size: 16),
+        label: Text(context.l10n.addNaslovButton),
+      );
+    }
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(naslov!),
+        IconButton(
+          tooltip: context.l10n.editNaslovTooltip,
+          icon: const Icon(Icons.edit_outlined, size: 16),
+          onPressed: onTap,
+        ),
+      ],
+    );
+  }
+}
+
 class _LastEmailSentCell extends StatelessWidget {
   final CustomerContact? contact;
 
@@ -308,9 +352,13 @@ class _StatusCell extends StatelessWidget {
       );
     }
 
-    final shortMessage = failure!.type == FailureType.smtpNotConfigured
-        ? context.l10n.sendResultSmtpNotConfiguredTooltip
-        : context.l10n.sendResultFailedTooltip;
+    final shortMessage = switch (failure!.type) {
+      FailureType.smtpNotConfigured =>
+        context.l10n.sendResultSmtpNotConfiguredTooltip,
+      FailureType.missingEmailSubject =>
+        context.l10n.sendResultMissingNaslovTooltip,
+      _ => context.l10n.sendResultFailedTooltip,
+    };
     final message = failure!.details == null
         ? shortMessage
         : '$shortMessage\n${failure!.details}';

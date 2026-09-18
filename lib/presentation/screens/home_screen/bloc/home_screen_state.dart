@@ -44,7 +44,6 @@ class HomeScreenLoaded extends HomeScreenState {
   final Map<String, CustomerContact> contactsByPib;
   final Set<String> selectedPibs;
   final bool isSending;
-  final String emailSubject;
 
   /// pib -> null on success, or the failure (with details) on error.
   final Map<String, Failure?> sendResults;
@@ -53,7 +52,6 @@ class HomeScreenLoaded extends HomeScreenState {
     required this.fileName,
     required this.debtors,
     required this.contactsByPib,
-    required this.emailSubject,
     this.selectedPibs = const {},
     this.isSending = false,
     this.sendResults = const {},
@@ -64,7 +62,6 @@ class HomeScreenLoaded extends HomeScreenState {
     Map<String, CustomerContact>? contactsByPib,
     Set<String>? selectedPibs,
     bool? isSending,
-    String? emailSubject,
     Map<String, Failure?>? sendResults,
   }) {
     return HomeScreenLoaded(
@@ -73,7 +70,6 @@ class HomeScreenLoaded extends HomeScreenState {
       contactsByPib: contactsByPib ?? this.contactsByPib,
       selectedPibs: selectedPibs ?? this.selectedPibs,
       isSending: isSending ?? this.isSending,
-      emailSubject: emailSubject ?? this.emailSubject,
       sendResults: sendResults ?? this.sendResults,
     );
   }
@@ -85,7 +81,6 @@ class HomeScreenLoaded extends HomeScreenState {
     contactsByPib,
     selectedPibs,
     isSending,
-    emailSubject,
     sendResults,
   ];
 }

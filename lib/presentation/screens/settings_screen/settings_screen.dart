@@ -77,7 +77,7 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
     _useSsl = settings.useSsl;
   }
 
-  void _save(BuildContext context, SmtpSettings? existingSettings) {
+  void _save(BuildContext context) {
     if (!_formKey.currentState!.validate()) return;
 
     final settings = SmtpSettings(
@@ -89,10 +89,6 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
       senderEmail: _senderEmailController.text.trim(),
       useSsl: _useSsl,
       footerText: _footerController.text,
-      // The email subject is set from the home screen when a file is
-      // loaded, not here - preserve whatever is already stored.
-      emailSubject:
-          existingSettings?.emailSubject ?? SmtpSettings.defaultEmailSubject,
     );
 
     context.read<SettingsBloc>().add(SettingsSaveRequested(settings));
@@ -203,7 +199,7 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
                     ElevatedButton(
                       onPressed: readyState.isSaving
                           ? null
-                          : () => _save(context, readyState.settings),
+                          : () => _save(context),
                       child: readyState.isSaving
                           ? const SizedBox(
                               width: 18,

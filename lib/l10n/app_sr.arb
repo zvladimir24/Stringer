@@ -137,6 +137,10 @@
   "@tableColumnLastEmailSent": {
     "description": "Table column header for the timestamp of the last reminder email sent to the company."
   },
+  "tableColumnNaslov": "Naslov emaila",
+  "@tableColumnNaslov": {
+    "description": "Table column header for the per-company reminder email subject."
+  },
   "lastEmailSentNeverLabel": "Nikad",
   "@lastEmailSentNeverLabel": {
     "description": "Shown in the last-email-sent column when no reminder has ever been sent to the company."
@@ -164,6 +168,26 @@
   "komercijalistaDialogTitle": "Komercijalista",
   "@komercijalistaDialogTitle": {
     "description": "Title of the dialog for adding/editing a customer's assigned sales rep."
+  },
+  "addNaslovButton": "Dodaj naslov",
+  "@addNaslovButton": {
+    "description": "Button shown on a row with no saved email subject (naslov)."
+  },
+  "editNaslovTooltip": "Izmeni naslov",
+  "@editNaslovTooltip": {
+    "description": "Tooltip for the edit icon on a row with a saved email subject (naslov)."
+  },
+  "naslovDialogTitle": "Naslov emaila",
+  "@naslovDialogTitle": {
+    "description": "Title of the dialog for adding/editing a customer's reminder email subject."
+  },
+  "naslovDialogLabel": "Naslov emaila",
+  "@naslovDialogLabel": {
+    "description": "Label for the text field in the naslov (email subject) dialog."
+  },
+  "naslovDialogHint": "npr. Opomena za neizmireno dugovanje",
+  "@naslovDialogHint": {
+    "description": "Hint text for the text field in the naslov (email subject) dialog."
   },
   "totalRecordsLabel": "Ukupno zapisa: {count}",
   "@totalRecordsLabel": {
@@ -202,6 +226,10 @@
   "sendResultFailedTooltip": "Slanje nije uspelo",
   "@sendResultFailedTooltip": {
     "description": "Tooltip when sending a reminder failed for any other reason."
+  },
+  "sendResultMissingNaslovTooltip": "Morate dodati naslov mejla.",
+  "@sendResultMissingNaslovTooltip": {
+    "description": "Tooltip when sending failed because the company has no email subject (naslov) set."
   },
   "contactDialogTitle": "Kontakt podaci",
   "@contactDialogTitle": {
@@ -270,18 +298,6 @@
   "settingsUseSslLabel": "Koristi SSL",
   "@settingsUseSslLabel": {
     "description": "Label for the use-SSL toggle."
-  },
-  "settingsEmailSubjectLabel": "Naslov mejla",
-  "@settingsEmailSubjectLabel": {
-    "description": "Label for the email subject field on the settings screen."
-  },
-  "settingsEmailSubjectHint": "npr. Opomena za neizmireno dugovanje",
-  "@settingsEmailSubjectHint": {
-    "description": "Hint text for the email subject field."
-  },
-  "editEmailSubjectTooltip": "Izmeni naslov mejla",
-  "@editEmailSubjectTooltip": {
-    "description": "Tooltip for the edit icon on the email subject bar shown after loading a file."
   },
   "settingsFooterLabel": "Potpis / kontakt telefoni",
   "@settingsFooterLabel": {

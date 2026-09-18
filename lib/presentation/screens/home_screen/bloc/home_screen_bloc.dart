@@ -7,9 +7,6 @@ import 'package:stringer/domain/contacts/save_contact_usecase.dart';
 import 'package:stringer/domain/email/send_payment_reminder_usecase.dart';
 import 'package:stringer/domain/home_screen/import_debtors_usecase.dart';
 import 'package:stringer/domain/models/customer_contact.dart';
-import 'package:stringer/domain/models/smtp_settings.dart';
-import 'package:stringer/domain/settings/get_smtp_settings_usecase.dart';
-import 'package:stringer/domain/settings/save_smtp_settings_usecase.dart';
 
 import 'home_screen_event.dart';
 import 'home_screen_state.dart';
@@ -20,23 +17,18 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   final GetContactsUseCase _getContactsUseCase;
   final SaveContactUseCase _saveContactUseCase;
   final SendPaymentReminderUseCase _sendPaymentReminderUseCase;
-  final GetSmtpSettingsUseCase _getSmtpSettingsUseCase;
-  final SaveSmtpSettingsUseCase _saveSmtpSettingsUseCase;
 
   HomeScreenBloc(
     this._importDebtorsUseCase,
     this._getContactsUseCase,
     this._saveContactUseCase,
     this._sendPaymentReminderUseCase,
-    this._getSmtpSettingsUseCase,
-    this._saveSmtpSettingsUseCase,
   ) : super(const HomeScreenInitial()) {
     on<HomeScreenExcelFileSelected>(_onExcelFileSelected);
     on<HomeScreenFileCleared>(_onFileCleared);
     on<HomeScreenContactSaved>(_onContactSaved);
     on<HomeScreenRecipientSelectionToggled>(_onRecipientSelectionToggled);
     on<HomeScreenSendRemindersRequested>(_onSendRemindersRequested);
-    on<HomeScreenEmailSubjectChanged>(_onEmailSubjectChanged);
   }
 
   Future<void> _onExcelFileSelected(
@@ -55,7 +47,6 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
       final contacts = await _getContactsUseCase();
       final contactsByPib = {for (final c in contacts) c.pib: c};
-      final smtpSettings = await _getSmtpSettingsUseCase();
 
       // Customers who owe something float to the top instead of being
       // mixed in with the rest of the list.
@@ -84,8 +75,6 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
           debtors: sortedDebtors,
           contactsByPib: contactsByPib,
           selectedPibs: defaultSelection,
-          emailSubject:
-              smtpSettings?.emailSubject ?? SmtpSettings.defaultEmailSubject,
         ),
       );
     } on AppException catch (exception) {
@@ -167,6 +156,11 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       final contact = currentState.contactsByPib[pib];
       if (contact == null || contact.email.isEmpty) continue;
 
+      if (contact.naslov.trim().isEmpty) {
+        results[pib] = const Failure(FailureType.missingEmailSubject);
+        continue;
+      }
+
       try {
         await _sendPaymentReminderUseCase(debtor: debtor, contact: contact);
         results[pib] = null;
@@ -189,24 +183,5 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
         selectedPibs: const {},
       ),
     );
-  }
-
-  Future<void> _onEmailSubjectChanged(
-    HomeScreenEmailSubjectChanged event,
-    Emitter<HomeScreenState> emit,
-  ) async {
-    final currentState = state;
-    if (currentState is! HomeScreenLoaded) return;
-
-    emit(currentState.copyWith(emailSubject: event.emailSubject));
-
-    // Persist it so it's remembered next time a file is loaded, same as
-    // contact emails and komercijalista.
-    final existingSettings = await _getSmtpSettingsUseCase();
-    if (existingSettings != null) {
-      await _saveSmtpSettingsUseCase(
-        existingSettings.copyWith(emailSubject: event.emailSubject),
-      );
-    }
   }
 }

@@ -115,6 +115,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tableColumnLastEmailSent => 'Last email sent';
 
   @override
+  String get tableColumnNaslov => 'Email subject';
+
+  @override
   String get lastEmailSentNeverLabel => 'Never';
 
   @override
@@ -134,6 +137,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get komercijalistaDialogTitle => 'Sales rep';
+
+  @override
+  String get addNaslovButton => 'Add subject';
+
+  @override
+  String get editNaslovTooltip => 'Edit subject';
+
+  @override
+  String get naslovDialogTitle => 'Email subject';
+
+  @override
+  String get naslovDialogLabel => 'Email subject';
+
+  @override
+  String get naslovDialogHint => 'e.g. Overdue payment reminder';
 
   @override
   String totalRecordsLabel(int count) {
@@ -160,6 +178,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sendResultFailedTooltip => 'Sending failed';
+
+  @override
+  String get sendResultMissingNaslovTooltip => 'You must add an email subject.';
 
   @override
   String get contactDialogTitle => 'Contact details';
@@ -211,15 +232,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsUseSslLabel => 'Use SSL';
-
-  @override
-  String get settingsEmailSubjectLabel => 'Email subject';
-
-  @override
-  String get settingsEmailSubjectHint => 'e.g. Overdue payment reminder';
-
-  @override
-  String get editEmailSubjectTooltip => 'Edit email subject';
 
   @override
   String get settingsFooterLabel => 'Signature / contact phone numbers';

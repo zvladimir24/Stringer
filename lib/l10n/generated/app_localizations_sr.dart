@@ -115,6 +115,9 @@ class AppLocalizationsSr extends AppLocalizations {
   String get tableColumnLastEmailSent => 'Poslednji mejl';
 
   @override
+  String get tableColumnNaslov => 'Naslov emaila';
+
+  @override
   String get lastEmailSentNeverLabel => 'Nikad';
 
   @override
@@ -134,6 +137,21 @@ class AppLocalizationsSr extends AppLocalizations {
 
   @override
   String get komercijalistaDialogTitle => 'Komercijalista';
+
+  @override
+  String get addNaslovButton => 'Dodaj naslov';
+
+  @override
+  String get editNaslovTooltip => 'Izmeni naslov';
+
+  @override
+  String get naslovDialogTitle => 'Naslov emaila';
+
+  @override
+  String get naslovDialogLabel => 'Naslov emaila';
+
+  @override
+  String get naslovDialogHint => 'npr. Opomena za neizmireno dugovanje';
 
   @override
   String totalRecordsLabel(int count) {
@@ -160,6 +178,9 @@ class AppLocalizationsSr extends AppLocalizations {
 
   @override
   String get sendResultFailedTooltip => 'Slanje nije uspelo';
+
+  @override
+  String get sendResultMissingNaslovTooltip => 'Morate dodati naslov mejla.';
 
   @override
   String get contactDialogTitle => 'Kontakt podaci';
@@ -211,15 +232,6 @@ class AppLocalizationsSr extends AppLocalizations {
 
   @override
   String get settingsUseSslLabel => 'Koristi SSL';
-
-  @override
-  String get settingsEmailSubjectLabel => 'Naslov mejla';
-
-  @override
-  String get settingsEmailSubjectHint => 'npr. Opomena za neizmireno dugovanje';
-
-  @override
-  String get editEmailSubjectTooltip => 'Izmeni naslov mejla';
 
   @override
   String get settingsFooterLabel => 'Potpis / kontakt telefoni';

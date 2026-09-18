@@ -4,6 +4,7 @@ enum FailureType {
   fileReadError,
   smtpNotConfigured,
   sendFailed,
+  missingEmailSubject,
 }
 
 class Failure {

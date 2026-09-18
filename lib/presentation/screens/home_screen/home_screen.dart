@@ -15,9 +15,8 @@ import 'bloc/home_screen_event.dart';
 import 'bloc/home_screen_state.dart';
 import 'widgets/contact_edit_dialog.dart';
 import 'widgets/debtors_review_table.dart';
-import 'widgets/email_subject_bar.dart';
-import 'widgets/email_subject_edit_dialog.dart';
 import 'widgets/komercijalista_edit_dialog.dart';
+import 'widgets/naslov_edit_dialog.dart';
 import 'widgets/selected_file_bar.dart';
 import 'widgets/send_reminders_bar.dart';
 
@@ -91,18 +90,23 @@ class _HomeScreenView extends StatelessWidget {
     bloc.add(HomeScreenContactSaved(updatedContact));
   }
 
-  Future<void> _editEmailSubject(
+  Future<void> _editNaslov(
     BuildContext context,
-    String currentSubject,
+    Debtor debtor,
+    CustomerContact? existingContact,
   ) async {
     final bloc = context.read<HomeScreenBloc>();
-    final subject = await showEmailSubjectEditDialog(
+    final naslov = await showNaslovEditDialog(
       context: context,
-      existingValue: currentSubject,
+      existingValue: existingContact?.naslov,
     );
 
-    if (subject == null) return;
-    bloc.add(HomeScreenEmailSubjectChanged(subject));
+    if (naslov == null) return;
+
+    final updatedContact =
+        existingContact?.copyWith(naslov: naslov) ??
+        CustomerContact(pib: debtor.pib, email: '', naslov: naslov);
+    bloc.add(HomeScreenContactSaved(updatedContact));
   }
 
   @override
@@ -169,7 +173,6 @@ class _HomeScreenView extends StatelessWidget {
               contactsByPib: final contactsByPib,
               selectedPibs: final selectedPibs,
               isSending: final isSending,
-              emailSubject: final emailSubject,
               sendResults: final sendResults,
             ) =>
               Column(
@@ -178,10 +181,6 @@ class _HomeScreenView extends StatelessWidget {
                     fileName: fileName,
                     recordCount: debtors.length,
                     onChangeFile: () => _pickExcelFile(context),
-                  ),
-                  EmailSubjectBar(
-                    emailSubject: emailSubject,
-                    onEdit: () => _editEmailSubject(context, emailSubject),
                   ),
                   Expanded(
                     child: Padding(
@@ -200,6 +199,11 @@ class _HomeScreenView extends StatelessWidget {
                           contactsByPib[debtor.pib],
                         ),
                         onEditKomercijalista: (debtor) => _editKomercijalista(
+                          context,
+                          debtor,
+                          contactsByPib[debtor.pib],
+                        ),
+                        onEditNaslov: (debtor) => _editNaslov(
                           context,
                           debtor,
                           contactsByPib[debtor.pib],
@@ -229,7 +233,8 @@ class _HomeScreenView extends StatelessWidget {
       FailureType.missingColumns => context.l10n.errorMissingColumnsTitle,
       FailureType.fileReadError ||
       FailureType.smtpNotConfigured ||
-      FailureType.sendFailed => context.l10n.errorReadingFileTitle,
+      FailureType.sendFailed ||
+      FailureType.missingEmailSubject => context.l10n.errorReadingFileTitle,
     };
   }
 
@@ -240,7 +245,8 @@ class _HomeScreenView extends StatelessWidget {
       FailureType.missingColumns => context.l10n.errorMissingColumnsMessage,
       FailureType.fileReadError ||
       FailureType.smtpNotConfigured ||
-      FailureType.sendFailed => context.l10n.errorReadingFileMessage,
+      FailureType.sendFailed ||
+      FailureType.missingEmailSubject => context.l10n.errorReadingFileMessage,
     };
   }
 }

@@ -30,7 +30,7 @@ class PaymentReminderEmailTemplate {
     final totalOverdueText =
         '${amountFormat.format(debtor.totalOverdue)} ${debtor.currency}';
 
-    final subject = '$emailSubject - ${debtor.companyName}';
+    final subject = emailSubject;
 
     final htmlBody =
         '''
