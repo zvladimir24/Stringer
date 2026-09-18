@@ -279,6 +279,10 @@
   "@settingsEmailSubjectHint": {
     "description": "Hint text for the email subject field."
   },
+  "editEmailSubjectTooltip": "Izmeni naslov mejla",
+  "@editEmailSubjectTooltip": {
+    "description": "Tooltip for the edit icon on the email subject bar shown after loading a file."
+  },
   "settingsFooterLabel": "Potpis / kontakt telefoni",
   "@settingsFooterLabel": {
     "description": "Label for the footer/signature text field appended to every email."

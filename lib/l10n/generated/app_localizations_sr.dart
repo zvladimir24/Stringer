@@ -219,6 +219,9 @@ class AppLocalizationsSr extends AppLocalizations {
   String get settingsEmailSubjectHint => 'npr. Opomena za neizmireno dugovanje';
 
   @override
+  String get editEmailSubjectTooltip => 'Izmeni naslov mejla';
+
+  @override
   String get settingsFooterLabel => 'Potpis / kontakt telefoni';
 
   @override

@@ -38,7 +38,6 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
   final _senderNameController = TextEditingController();
   final _senderEmailController = TextEditingController();
   final _footerController = TextEditingController();
-  final _emailSubjectController = TextEditingController();
   // Off by default: Gmail/Google Workspace (the expected provider) uses
   // STARTTLS on port 587, not a direct SSL connection.
   bool _useSsl = false;
@@ -53,7 +52,6 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
     _senderNameController.dispose();
     _senderEmailController.dispose();
     _footerController.dispose();
-    _emailSubjectController.dispose();
     super.dispose();
   }
 
@@ -66,7 +64,6 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
       // expected provider) so there's less to fill in.
       _hostController.text = 'smtp.gmail.com';
       _portController.text = '587';
-      _emailSubjectController.text = SmtpSettings.defaultEmailSubject;
       return;
     }
 
@@ -77,11 +74,10 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
     _senderNameController.text = settings.senderName;
     _senderEmailController.text = settings.senderEmail;
     _footerController.text = settings.footerText;
-    _emailSubjectController.text = settings.emailSubject;
     _useSsl = settings.useSsl;
   }
 
-  void _save(BuildContext context) {
+  void _save(BuildContext context, SmtpSettings? existingSettings) {
     if (!_formKey.currentState!.validate()) return;
 
     final settings = SmtpSettings(
@@ -93,9 +89,10 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
       senderEmail: _senderEmailController.text.trim(),
       useSsl: _useSsl,
       footerText: _footerController.text,
-      emailSubject: _emailSubjectController.text.trim().isEmpty
-          ? SmtpSettings.defaultEmailSubject
-          : _emailSubjectController.text.trim(),
+      // The email subject is set from the home screen when a file is
+      // loaded, not here - preserve whatever is already stored.
+      emailSubject:
+          existingSettings?.emailSubject ?? SmtpSettings.defaultEmailSubject,
     );
 
     context.read<SettingsBloc>().add(SettingsSaveRequested(settings));
@@ -194,14 +191,6 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
                     ),
                     const SizedBox(height: AppSpacing.md),
                     TextFormField(
-                      controller: _emailSubjectController,
-                      decoration: InputDecoration(
-                        labelText: context.l10n.settingsEmailSubjectLabel,
-                        hintText: context.l10n.settingsEmailSubjectHint,
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.md),
-                    TextFormField(
                       controller: _footerController,
                       minLines: 2,
                       maxLines: 4,
@@ -214,7 +203,7 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
                     ElevatedButton(
                       onPressed: readyState.isSaving
                           ? null
-                          : () => _save(context),
+                          : () => _save(context, readyState.settings),
                       child: readyState.isSaving
                           ? const SizedBox(
                               width: 18,

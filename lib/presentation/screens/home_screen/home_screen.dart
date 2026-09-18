@@ -15,6 +15,8 @@ import 'bloc/home_screen_event.dart';
 import 'bloc/home_screen_state.dart';
 import 'widgets/contact_edit_dialog.dart';
 import 'widgets/debtors_review_table.dart';
+import 'widgets/email_subject_bar.dart';
+import 'widgets/email_subject_edit_dialog.dart';
 import 'widgets/komercijalista_edit_dialog.dart';
 import 'widgets/selected_file_bar.dart';
 import 'widgets/send_reminders_bar.dart';
@@ -89,6 +91,20 @@ class _HomeScreenView extends StatelessWidget {
     bloc.add(HomeScreenContactSaved(updatedContact));
   }
 
+  Future<void> _editEmailSubject(
+    BuildContext context,
+    String currentSubject,
+  ) async {
+    final bloc = context.read<HomeScreenBloc>();
+    final subject = await showEmailSubjectEditDialog(
+      context: context,
+      existingValue: currentSubject,
+    );
+
+    if (subject == null) return;
+    bloc.add(HomeScreenEmailSubjectChanged(subject));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,6 +169,7 @@ class _HomeScreenView extends StatelessWidget {
               contactsByPib: final contactsByPib,
               selectedPibs: final selectedPibs,
               isSending: final isSending,
+              emailSubject: final emailSubject,
               sendResults: final sendResults,
             ) =>
               Column(
@@ -161,6 +178,10 @@ class _HomeScreenView extends StatelessWidget {
                     fileName: fileName,
                     recordCount: debtors.length,
                     onChangeFile: () => _pickExcelFile(context),
+                  ),
+                  EmailSubjectBar(
+                    emailSubject: emailSubject,
+                    onEdit: () => _editEmailSubject(context, emailSubject),
                   ),
                   Expanded(
                     child: Padding(

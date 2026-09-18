@@ -494,6 +494,12 @@ abstract class AppLocalizations {
   /// **'npr. Opomena za neizmireno dugovanje'**
   String get settingsEmailSubjectHint;
 
+  /// Tooltip for the edit icon on the email subject bar shown after loading a file.
+  ///
+  /// In sr, this message translates to:
+  /// **'Izmeni naslov mejla'**
+  String get editEmailSubjectTooltip;
+
   /// Label for the footer/signature text field appended to every email.
   ///
   /// In sr, this message translates to:

@@ -219,6 +219,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsEmailSubjectHint => 'e.g. Overdue payment reminder';
 
   @override
+  String get editEmailSubjectTooltip => 'Edit email subject';
+
+  @override
   String get settingsFooterLabel => 'Signature / contact phone numbers';
 
   @override
