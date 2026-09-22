@@ -186,10 +186,19 @@ class AppLocalizationsSr extends AppLocalizations {
   String get contactDialogTitle => 'Kontakt podaci';
 
   @override
-  String get contactDialogEmailLabel => 'Email adresa';
+  String get contactDialogEmailLabel => 'Email kompanije';
 
   @override
   String get contactDialogEmailHint => 'npr. office@kompanija.rs';
+
+  @override
+  String get contactDialogKomercijalistaEmailLabel => 'Email komercijaliste';
+
+  @override
+  String get contactDialogDirektorEmailLabel => 'Email direktora';
+
+  @override
+  String get contactDialogMenadzerEmailLabel => 'Email menadžera';
 
   @override
   String get contactDialogKomercijalistaLabel => 'Komercijalista';

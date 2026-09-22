@@ -186,10 +186,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get contactDialogTitle => 'Contact details';
 
   @override
-  String get contactDialogEmailLabel => 'Email address';
+  String get contactDialogEmailLabel => 'Company email';
 
   @override
   String get contactDialogEmailHint => 'e.g. office@company.com';
+
+  @override
+  String get contactDialogKomercijalistaEmailLabel => 'Sales rep email';
+
+  @override
+  String get contactDialogDirektorEmailLabel => 'Director email';
+
+  @override
+  String get contactDialogMenadzerEmailLabel => 'Manager email';
 
   @override
   String get contactDialogKomercijalistaLabel => 'Sales rep';

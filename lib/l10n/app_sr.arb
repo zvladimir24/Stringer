@@ -235,13 +235,25 @@
   "@contactDialogTitle": {
     "description": "Title of the dialog for adding/editing a customer contact."
   },
-  "contactDialogEmailLabel": "Email adresa",
+  "contactDialogEmailLabel": "Email kompanije",
   "@contactDialogEmailLabel": {
-    "description": "Label for the email field in the contact dialog."
+    "description": "Label for the primary company email field in the contact dialog."
   },
   "contactDialogEmailHint": "npr. office@kompanija.rs",
   "@contactDialogEmailHint": {
     "description": "Hint text for the email field in the contact dialog."
+  },
+  "contactDialogKomercijalistaEmailLabel": "Email komercijaliste",
+  "@contactDialogKomercijalistaEmailLabel": {
+    "description": "Label for the optional komercijalista CC email field in the contact dialog."
+  },
+  "contactDialogDirektorEmailLabel": "Email direktora",
+  "@contactDialogDirektorEmailLabel": {
+    "description": "Label for the optional direktor CC email field in the contact dialog."
+  },
+  "contactDialogMenadzerEmailLabel": "Email menadžera",
+  "@contactDialogMenadzerEmailLabel": {
+    "description": "Label for the optional menadžer CC email field in the contact dialog."
   },
   "contactDialogKomercijalistaLabel": "Komercijalista",
   "@contactDialogKomercijalistaLabel": {

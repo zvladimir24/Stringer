@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:stringer/core/extensions/build_context_extensions.dart';
 import 'package:stringer/domain/models/customer_contact.dart';
 
-/// Shows a dialog for adding/editing a customer's email. Returns the saved
-/// [CustomerContact], or null if the user cancelled.
+/// Shows a dialog for adding/editing a customer's email plus the optional
+/// CC emails (komercijalista, direktor, menadžer) that should also receive
+/// the reminder. Returns the saved [CustomerContact], or null if the user
+/// cancelled.
 Future<CustomerContact?> showContactEditDialog({
   required BuildContext context,
   required String pib,
@@ -33,6 +35,9 @@ class ContactEditDialog extends StatefulWidget {
 class _ContactEditDialogState extends State<ContactEditDialog> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _emailController;
+  late final TextEditingController _komercijalistaEmailController;
+  late final TextEditingController _direktorEmailController;
+  late final TextEditingController _menadzerEmailController;
 
   static final _emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
 
@@ -42,12 +47,32 @@ class _ContactEditDialogState extends State<ContactEditDialog> {
     _emailController = TextEditingController(
       text: widget.existingContact?.email ?? '',
     );
+    _komercijalistaEmailController = TextEditingController(
+      text: widget.existingContact?.komercijalistaEmail ?? '',
+    );
+    _direktorEmailController = TextEditingController(
+      text: widget.existingContact?.direktorEmail ?? '',
+    );
+    _menadzerEmailController = TextEditingController(
+      text: widget.existingContact?.menadzerEmail ?? '',
+    );
   }
 
   @override
   void dispose() {
     _emailController.dispose();
+    _komercijalistaEmailController.dispose();
+    _direktorEmailController.dispose();
+    _menadzerEmailController.dispose();
     super.dispose();
+  }
+
+  String? _validateOptionalEmail(String? value) {
+    if (value == null || value.trim().isEmpty) return null;
+    if (!_emailRegex.hasMatch(value.trim())) {
+      return context.l10n.contactDialogInvalidEmail;
+    }
+    return null;
   }
 
   void _save() {
@@ -58,6 +83,10 @@ class _ContactEditDialogState extends State<ContactEditDialog> {
         pib: widget.pib,
         email: _emailController.text.trim(),
         komercijalista: widget.existingContact?.komercijalista ?? '',
+        naslov: widget.existingContact?.naslov ?? '',
+        komercijalistaEmail: _komercijalistaEmailController.text.trim(),
+        direktorEmail: _direktorEmailController.text.trim(),
+        menadzerEmail: _menadzerEmailController.text.trim(),
         lastEmailSentAt: widget.existingContact?.lastEmailSentAt,
       ),
     );
@@ -69,19 +98,48 @@ class _ContactEditDialogState extends State<ContactEditDialog> {
       title: Text(context.l10n.contactDialogTitle),
       content: Form(
         key: _formKey,
-        child: TextFormField(
-          controller: _emailController,
-          autofocus: true,
-          decoration: InputDecoration(
-            labelText: context.l10n.contactDialogEmailLabel,
-            hintText: context.l10n.contactDialogEmailHint,
-          ),
-          validator: (value) {
-            if (value == null || !_emailRegex.hasMatch(value.trim())) {
-              return context.l10n.contactDialogInvalidEmail;
-            }
-            return null;
-          },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextFormField(
+              controller: _emailController,
+              autofocus: true,
+              decoration: InputDecoration(
+                labelText: context.l10n.contactDialogEmailLabel,
+                hintText: context.l10n.contactDialogEmailHint,
+              ),
+              validator: (value) {
+                if (value == null || !_emailRegex.hasMatch(value.trim())) {
+                  return context.l10n.contactDialogInvalidEmail;
+                }
+                return null;
+              },
+            ),
+            TextFormField(
+              controller: _komercijalistaEmailController,
+              decoration: InputDecoration(
+                labelText: context.l10n.contactDialogKomercijalistaEmailLabel,
+                hintText: context.l10n.contactDialogEmailHint,
+              ),
+              validator: _validateOptionalEmail,
+            ),
+            TextFormField(
+              controller: _direktorEmailController,
+              decoration: InputDecoration(
+                labelText: context.l10n.contactDialogDirektorEmailLabel,
+                hintText: context.l10n.contactDialogEmailHint,
+              ),
+              validator: _validateOptionalEmail,
+            ),
+            TextFormField(
+              controller: _menadzerEmailController,
+              decoration: InputDecoration(
+                labelText: context.l10n.contactDialogMenadzerEmailLabel,
+                hintText: context.l10n.contactDialogEmailHint,
+              ),
+              validator: _validateOptionalEmail,
+            ),
+          ],
         ),
       ),
       actions: [

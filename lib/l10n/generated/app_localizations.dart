@@ -428,10 +428,10 @@ abstract class AppLocalizations {
   /// **'Kontakt podaci'**
   String get contactDialogTitle;
 
-  /// Label for the email field in the contact dialog.
+  /// Label for the primary company email field in the contact dialog.
   ///
   /// In sr, this message translates to:
-  /// **'Email adresa'**
+  /// **'Email kompanije'**
   String get contactDialogEmailLabel;
 
   /// Hint text for the email field in the contact dialog.
@@ -439,6 +439,24 @@ abstract class AppLocalizations {
   /// In sr, this message translates to:
   /// **'npr. office@kompanija.rs'**
   String get contactDialogEmailHint;
+
+  /// Label for the optional komercijalista CC email field in the contact dialog.
+  ///
+  /// In sr, this message translates to:
+  /// **'Email komercijaliste'**
+  String get contactDialogKomercijalistaEmailLabel;
+
+  /// Label for the optional direktor CC email field in the contact dialog.
+  ///
+  /// In sr, this message translates to:
+  /// **'Email direktora'**
+  String get contactDialogDirektorEmailLabel;
+
+  /// Label for the optional menadžer CC email field in the contact dialog.
+  ///
+  /// In sr, this message translates to:
+  /// **'Email menadžera'**
+  String get contactDialogMenadzerEmailLabel;
 
   /// Label for the salesperson/account rep field in the contact dialog.
   ///
