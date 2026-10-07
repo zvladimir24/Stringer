@@ -7,6 +7,7 @@ import 'package:stringer/domain/contacts/save_contact_usecase.dart';
 import 'package:stringer/domain/email/send_payment_reminder_usecase.dart';
 import 'package:stringer/domain/home_screen/import_debtors_usecase.dart';
 import 'package:stringer/domain/models/customer_contact.dart';
+import 'package:stringer/domain/models/debtor.dart';
 
 import 'home_screen_event.dart';
 import 'home_screen_state.dart';
@@ -38,10 +39,15 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     emit(const HomeScreenLoading());
 
     try {
-      final debtors = await _importDebtorsUseCase(event.filePath);
+      final debtors = <Debtor>[];
+      for (final filePath in event.filePaths) {
+        debtors.addAll(await _importDebtorsUseCase(filePath));
+      }
+
+      final combinedFileName = event.fileNames.join(', ');
 
       if (debtors.isEmpty) {
-        emit(HomeScreenEmpty(fileName: event.fileName));
+        emit(HomeScreenEmpty(fileName: combinedFileName));
         return;
       }
 
@@ -71,7 +77,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
       emit(
         HomeScreenLoaded(
-          fileName: event.fileName,
+          fileName: combinedFileName,
           debtors: sortedDebtors,
           contactsByPib: contactsByPib,
           selectedPibs: defaultSelection,

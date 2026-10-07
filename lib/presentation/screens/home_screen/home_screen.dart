@@ -36,17 +36,20 @@ class _HomeScreenView extends StatelessWidget {
   const _HomeScreenView();
 
   Future<void> _pickExcelFile(BuildContext context) async {
-    final pickedFile = await FilePicker.pickFile(
+    final pickedFiles = await FilePicker.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['xlsx'],
     );
 
-    final path = pickedFile?.path;
-    if (path == null) return;
+    final validFiles = pickedFiles.where((file) => file.path != null);
+    if (validFiles.isEmpty) return;
 
     if (!context.mounted) return;
     context.read<HomeScreenBloc>().add(
-      HomeScreenExcelFileSelected(filePath: path, fileName: pickedFile!.name),
+      HomeScreenExcelFileSelected(
+        filePaths: [for (final file in validFiles) file.path!],
+        fileNames: [for (final file in validFiles) file.name],
+      ),
     );
   }
 

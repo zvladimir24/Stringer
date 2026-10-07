@@ -9,16 +9,16 @@ sealed class HomeScreenEvent extends Equatable {
 }
 
 class HomeScreenExcelFileSelected extends HomeScreenEvent {
-  final String filePath;
-  final String fileName;
+  final List<String> filePaths;
+  final List<String> fileNames;
 
   const HomeScreenExcelFileSelected({
-    required this.filePath,
-    required this.fileName,
+    required this.filePaths,
+    required this.fileNames,
   });
 
   @override
-  List<Object?> get props => [filePath, fileName];
+  List<Object?> get props => [filePaths, fileNames];
 }
 
 class HomeScreenFileCleared extends HomeScreenEvent {
