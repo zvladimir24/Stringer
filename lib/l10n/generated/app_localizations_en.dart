@@ -195,12 +195,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get contactDialogKomercijalistaEmailLabel => 'Sales rep email';
 
   @override
-  String get contactDialogDirektorEmailLabel => 'Director email';
-
-  @override
-  String get contactDialogMenadzerEmailLabel => 'Manager email';
-
-  @override
   String get contactDialogKomercijalistaLabel => 'Sales rep';
 
   @override
@@ -247,6 +241,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsFooterHint => 'e.g. Company name, Phone: 011/xxx-xxx';
+
+  @override
+  String get settingsCcSectionTitle => 'Additional recipients (CC)';
+
+  @override
+  String get settingsDirektorEmailLabel => 'Director email';
+
+  @override
+  String get settingsMenadzerEmailLabel => 'Manager email';
 
   @override
   String get settingsSaveButton => 'Save settings';

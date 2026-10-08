@@ -446,18 +446,6 @@ abstract class AppLocalizations {
   /// **'Email komercijaliste'**
   String get contactDialogKomercijalistaEmailLabel;
 
-  /// Label for the optional direktor CC email field in the contact dialog.
-  ///
-  /// In sr, this message translates to:
-  /// **'Email direktora'**
-  String get contactDialogDirektorEmailLabel;
-
-  /// Label for the optional menadžer CC email field in the contact dialog.
-  ///
-  /// In sr, this message translates to:
-  /// **'Email menadžera'**
-  String get contactDialogMenadzerEmailLabel;
-
   /// Label for the salesperson/account rep field in the contact dialog.
   ///
   /// In sr, this message translates to:
@@ -553,6 +541,24 @@ abstract class AppLocalizations {
   /// In sr, this message translates to:
   /// **'npr. Naziv kompanije, Telefon: 011/xxx-xxx'**
   String get settingsFooterHint;
+
+  /// Section title for the fixed direktor/menadžer CC email fields.
+  ///
+  /// In sr, this message translates to:
+  /// **'Dodatni primaoci (CC)'**
+  String get settingsCcSectionTitle;
+
+  /// Label for the fixed direktor CC email field on the settings screen.
+  ///
+  /// In sr, this message translates to:
+  /// **'Email direktora'**
+  String get settingsDirektorEmailLabel;
+
+  /// Label for the fixed menadžer CC email field on the settings screen.
+  ///
+  /// In sr, this message translates to:
+  /// **'Email menadžera'**
+  String get settingsMenadzerEmailLabel;
 
   /// Save button on the settings screen.
   ///

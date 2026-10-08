@@ -35,7 +35,7 @@ class MailerEmailDataSource {
     final message = Message()
       ..from = Address(settings.senderEmail, settings.senderName)
       ..recipients.add(contact.email)
-      ..ccRecipients.addAll(contact.ccEmails)
+      ..ccRecipients.addAll([...contact.ccEmails, ...settings.ccEmails])
       ..subject = content.subject
       ..html = content.htmlBody;
 

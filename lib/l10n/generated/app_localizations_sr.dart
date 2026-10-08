@@ -195,12 +195,6 @@ class AppLocalizationsSr extends AppLocalizations {
   String get contactDialogKomercijalistaEmailLabel => 'Email komercijaliste';
 
   @override
-  String get contactDialogDirektorEmailLabel => 'Email direktora';
-
-  @override
-  String get contactDialogMenadzerEmailLabel => 'Email menadžera';
-
-  @override
   String get contactDialogKomercijalistaLabel => 'Komercijalista';
 
   @override
@@ -247,6 +241,15 @@ class AppLocalizationsSr extends AppLocalizations {
 
   @override
   String get settingsFooterHint => 'npr. Naziv kompanije, Telefon: 011/xxx-xxx';
+
+  @override
+  String get settingsCcSectionTitle => 'Dodatni primaoci (CC)';
+
+  @override
+  String get settingsDirektorEmailLabel => 'Email direktora';
+
+  @override
+  String get settingsMenadzerEmailLabel => 'Email menadžera';
 
   @override
   String get settingsSaveButton => 'Sačuvaj podešavanja';

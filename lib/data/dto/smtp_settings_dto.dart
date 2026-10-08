@@ -9,6 +9,8 @@ class SmtpSettingsDto {
   final String senderEmail;
   final bool useSsl;
   final String footerText;
+  final String direktorEmail;
+  final String menadzerEmail;
 
   const SmtpSettingsDto({
     required this.host,
@@ -19,6 +21,8 @@ class SmtpSettingsDto {
     required this.senderEmail,
     required this.useSsl,
     required this.footerText,
+    required this.direktorEmail,
+    required this.menadzerEmail,
   });
 
   factory SmtpSettingsDto.fromJson(Map<String, dynamic> json) {
@@ -31,6 +35,12 @@ class SmtpSettingsDto {
       senderEmail: json['senderEmail'] as String,
       useSsl: json['useSsl'] as bool,
       footerText: json['footerText'] as String,
+      direktorEmail:
+          json['direktorEmail'] as String? ??
+          SmtpSettings.defaultDirektorEmail,
+      menadzerEmail:
+          json['menadzerEmail'] as String? ??
+          SmtpSettings.defaultMenadzerEmail,
     );
   }
 
@@ -44,6 +54,8 @@ class SmtpSettingsDto {
       'senderEmail': senderEmail,
       'useSsl': useSsl,
       'footerText': footerText,
+      'direktorEmail': direktorEmail,
+      'menadzerEmail': menadzerEmail,
     };
   }
 }
@@ -59,6 +71,8 @@ extension SmtpSettingsDtoMapper on SmtpSettingsDto {
       senderEmail: senderEmail,
       useSsl: useSsl,
       footerText: footerText,
+      direktorEmail: direktorEmail,
+      menadzerEmail: menadzerEmail,
     );
   }
 }
@@ -74,6 +88,8 @@ extension SmtpSettingsDomainMapper on SmtpSettings {
       senderEmail: senderEmail,
       useSsl: useSsl,
       footerText: footerText,
+      direktorEmail: direktorEmail,
+      menadzerEmail: menadzerEmail,
     );
   }
 }

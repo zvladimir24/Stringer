@@ -3,9 +3,8 @@ import 'package:stringer/core/extensions/build_context_extensions.dart';
 import 'package:stringer/domain/models/customer_contact.dart';
 
 /// Shows a dialog for adding/editing a customer's email plus the optional
-/// CC emails (komercijalista, direktor, menadžer) that should also receive
-/// the reminder. Returns the saved [CustomerContact], or null if the user
-/// cancelled.
+/// komercijalista CC email that should also receive the reminder. Returns
+/// the saved [CustomerContact], or null if the user cancelled.
 Future<CustomerContact?> showContactEditDialog({
   required BuildContext context,
   required String pib,
@@ -36,8 +35,6 @@ class _ContactEditDialogState extends State<ContactEditDialog> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _emailController;
   late final TextEditingController _komercijalistaEmailController;
-  late final TextEditingController _direktorEmailController;
-  late final TextEditingController _menadzerEmailController;
 
   static final _emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
 
@@ -50,20 +47,12 @@ class _ContactEditDialogState extends State<ContactEditDialog> {
     _komercijalistaEmailController = TextEditingController(
       text: widget.existingContact?.komercijalistaEmail ?? '',
     );
-    _direktorEmailController = TextEditingController(
-      text: widget.existingContact?.direktorEmail ?? '',
-    );
-    _menadzerEmailController = TextEditingController(
-      text: widget.existingContact?.menadzerEmail ?? '',
-    );
   }
 
   @override
   void dispose() {
     _emailController.dispose();
     _komercijalistaEmailController.dispose();
-    _direktorEmailController.dispose();
-    _menadzerEmailController.dispose();
     super.dispose();
   }
 
@@ -85,8 +74,6 @@ class _ContactEditDialogState extends State<ContactEditDialog> {
         komercijalista: widget.existingContact?.komercijalista ?? '',
         naslov: widget.existingContact?.naslov ?? '',
         komercijalistaEmail: _komercijalistaEmailController.text.trim(),
-        direktorEmail: _direktorEmailController.text.trim(),
-        menadzerEmail: _menadzerEmailController.text.trim(),
         lastEmailSentAt: widget.existingContact?.lastEmailSentAt,
       ),
     );
@@ -119,22 +106,6 @@ class _ContactEditDialogState extends State<ContactEditDialog> {
               controller: _komercijalistaEmailController,
               decoration: InputDecoration(
                 labelText: context.l10n.contactDialogKomercijalistaEmailLabel,
-                hintText: context.l10n.contactDialogEmailHint,
-              ),
-              validator: _validateOptionalEmail,
-            ),
-            TextFormField(
-              controller: _direktorEmailController,
-              decoration: InputDecoration(
-                labelText: context.l10n.contactDialogDirektorEmailLabel,
-                hintText: context.l10n.contactDialogEmailHint,
-              ),
-              validator: _validateOptionalEmail,
-            ),
-            TextFormField(
-              controller: _menadzerEmailController,
-              decoration: InputDecoration(
-                labelText: context.l10n.contactDialogMenadzerEmailLabel,
                 hintText: context.l10n.contactDialogEmailHint,
               ),
               validator: _validateOptionalEmail,

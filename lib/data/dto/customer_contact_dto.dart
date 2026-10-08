@@ -6,8 +6,6 @@ class CustomerContactDto {
   final String komercijalista;
   final String naslov;
   final String komercijalistaEmail;
-  final String direktorEmail;
-  final String menadzerEmail;
   final String? lastEmailSentAt;
 
   const CustomerContactDto({
@@ -16,8 +14,6 @@ class CustomerContactDto {
     this.komercijalista = '',
     this.naslov = '',
     this.komercijalistaEmail = '',
-    this.direktorEmail = '',
-    this.menadzerEmail = '',
     this.lastEmailSentAt,
   });
 
@@ -28,8 +24,6 @@ class CustomerContactDto {
       komercijalista: json['komercijalista'] as String? ?? '',
       naslov: json['naslov'] as String? ?? '',
       komercijalistaEmail: json['komercijalistaEmail'] as String? ?? '',
-      direktorEmail: json['direktorEmail'] as String? ?? '',
-      menadzerEmail: json['menadzerEmail'] as String? ?? '',
       lastEmailSentAt: json['lastEmailSentAt'] as String?,
     );
   }
@@ -41,8 +35,6 @@ class CustomerContactDto {
       'komercijalista': komercijalista,
       'naslov': naslov,
       'komercijalistaEmail': komercijalistaEmail,
-      'direktorEmail': direktorEmail,
-      'menadzerEmail': menadzerEmail,
       'lastEmailSentAt': lastEmailSentAt,
     };
   }
@@ -56,8 +48,6 @@ extension CustomerContactDtoMapper on CustomerContactDto {
       komercijalista: komercijalista,
       naslov: naslov,
       komercijalistaEmail: komercijalistaEmail,
-      direktorEmail: direktorEmail,
-      menadzerEmail: menadzerEmail,
       lastEmailSentAt: lastEmailSentAt == null
           ? null
           : DateTime.parse(lastEmailSentAt!),
@@ -73,8 +63,6 @@ extension CustomerContactDomainMapper on CustomerContact {
       komercijalista: komercijalista,
       naslov: naslov,
       komercijalistaEmail: komercijalistaEmail,
-      direktorEmail: direktorEmail,
-      menadzerEmail: menadzerEmail,
       lastEmailSentAt: lastEmailSentAt?.toIso8601String(),
     );
   }

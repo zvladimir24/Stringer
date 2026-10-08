@@ -247,14 +247,6 @@
   "@contactDialogKomercijalistaEmailLabel": {
     "description": "Label for the optional komercijalista CC email field in the contact dialog."
   },
-  "contactDialogDirektorEmailLabel": "Email direktora",
-  "@contactDialogDirektorEmailLabel": {
-    "description": "Label for the optional direktor CC email field in the contact dialog."
-  },
-  "contactDialogMenadzerEmailLabel": "Email menadžera",
-  "@contactDialogMenadzerEmailLabel": {
-    "description": "Label for the optional menadžer CC email field in the contact dialog."
-  },
   "contactDialogKomercijalistaLabel": "Komercijalista",
   "@contactDialogKomercijalistaLabel": {
     "description": "Label for the salesperson/account rep field in the contact dialog."
@@ -318,6 +310,18 @@
   "settingsFooterHint": "npr. Naziv kompanije, Telefon: 011/xxx-xxx",
   "@settingsFooterHint": {
     "description": "Hint text for the footer/signature field."
+  },
+  "settingsCcSectionTitle": "Dodatni primaoci (CC)",
+  "@settingsCcSectionTitle": {
+    "description": "Section title for the fixed direktor/menadžer CC email fields."
+  },
+  "settingsDirektorEmailLabel": "Email direktora",
+  "@settingsDirektorEmailLabel": {
+    "description": "Label for the fixed direktor CC email field on the settings screen."
+  },
+  "settingsMenadzerEmailLabel": "Email menadžera",
+  "@settingsMenadzerEmailLabel": {
+    "description": "Label for the fixed menadžer CC email field on the settings screen."
   },
   "settingsSaveButton": "Sačuvaj podešavanja",
   "@settingsSaveButton": {

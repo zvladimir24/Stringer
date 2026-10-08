@@ -38,10 +38,14 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
   final _senderNameController = TextEditingController();
   final _senderEmailController = TextEditingController();
   final _footerController = TextEditingController();
+  final _direktorEmailController = TextEditingController();
+  final _menadzerEmailController = TextEditingController();
   // Off by default: Gmail/Google Workspace (the expected provider) uses
   // STARTTLS on port 587, not a direct SSL connection.
   bool _useSsl = false;
   bool _initialized = false;
+
+  static final _emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
 
   @override
   void dispose() {
@@ -52,7 +56,17 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
     _senderNameController.dispose();
     _senderEmailController.dispose();
     _footerController.dispose();
+    _direktorEmailController.dispose();
+    _menadzerEmailController.dispose();
     super.dispose();
+  }
+
+  String? _validateOptionalEmail(String? value) {
+    if (value == null || value.trim().isEmpty) return null;
+    if (!_emailRegex.hasMatch(value.trim())) {
+      return context.l10n.contactDialogInvalidEmail;
+    }
+    return null;
   }
 
   void _syncControllers(SmtpSettings? settings) {
@@ -64,6 +78,8 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
       // expected provider) so there's less to fill in.
       _hostController.text = 'smtp.gmail.com';
       _portController.text = '587';
+      _direktorEmailController.text = SmtpSettings.defaultDirektorEmail;
+      _menadzerEmailController.text = SmtpSettings.defaultMenadzerEmail;
       return;
     }
 
@@ -74,6 +90,8 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
     _senderNameController.text = settings.senderName;
     _senderEmailController.text = settings.senderEmail;
     _footerController.text = settings.footerText;
+    _direktorEmailController.text = settings.direktorEmail;
+    _menadzerEmailController.text = settings.menadzerEmail;
     _useSsl = settings.useSsl;
   }
 
@@ -89,6 +107,8 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
       senderEmail: _senderEmailController.text.trim(),
       useSsl: _useSsl,
       footerText: _footerController.text,
+      direktorEmail: _direktorEmailController.text.trim(),
+      menadzerEmail: _menadzerEmailController.text.trim(),
     );
 
     context.read<SettingsBloc>().add(SettingsSaveRequested(settings));
@@ -194,6 +214,27 @@ class _SettingsScreenViewState extends State<_SettingsScreenView> {
                         labelText: context.l10n.settingsFooterLabel,
                         hintText: context.l10n.settingsFooterHint,
                       ),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    Text(
+                      context.l10n.settingsCcSectionTitle,
+                      style: AppTextStyles.subtitle,
+                    ),
+                    const SizedBox(height: AppSpacing.md),
+                    TextFormField(
+                      controller: _direktorEmailController,
+                      decoration: InputDecoration(
+                        labelText: context.l10n.settingsDirektorEmailLabel,
+                      ),
+                      validator: _validateOptionalEmail,
+                    ),
+                    const SizedBox(height: AppSpacing.md),
+                    TextFormField(
+                      controller: _menadzerEmailController,
+                      decoration: InputDecoration(
+                        labelText: context.l10n.settingsMenadzerEmailLabel,
+                      ),
+                      validator: _validateOptionalEmail,
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     ElevatedButton(
